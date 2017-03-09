@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 //text changes by donna
+////////
 angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
