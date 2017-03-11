@@ -25,7 +25,7 @@ When creating a feature, your development life-cycle should look something like 
 
 ![Git](https://puu.sh/uECju/ed2859b0b2.png)
 
-6) Create a 'Pull Request on GitHub.
+6) Create a 'Pull Request' on GitHub.
 
 7) Wait for your change to be approved to be merged into master. This can be done by yourself, but having someone else within your team do it lets us perform a small code review that can catch errors you may have missed.
   * If you are working on another feature while you wait, repeat steps 1-6.
