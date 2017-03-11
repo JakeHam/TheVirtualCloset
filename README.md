@@ -15,6 +15,7 @@ When creating a feature, your development life-cycle should look something like 
 ![Git](https://puu.sh/uEBnD/8859709c02.png)
 
 3) Create your changes.
+
 4) Before committing, pull from master to ensure that your branch is up-to-date and resolve any merge conflicts.
 
 ![Git](https://puu.sh/uEBI7/f54e13cc68.png)
