@@ -3,7 +3,7 @@
 
 # User-specific stuff:
 QA/node_modules
-.idea
+.idea/
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
