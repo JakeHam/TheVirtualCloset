@@ -4,6 +4,7 @@
 # User-specific stuff:
 QA/node_modules
 .idea
+VirtualClosetApp/npm-debug.log
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
