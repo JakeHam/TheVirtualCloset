@@ -1,1 +1,19 @@
 /* Empty. Add your own CSS if you like */
+
+.vc-container{
+    display: flex;
+    flex-direction: column;
+    height:100%;
+}
+.row{
+
+    flex:1;
+    align-items:center;
+}
+
+.col{
+
+    flex:1;
+    align-items:center;
+
+}
