@@ -6,14 +6,21 @@
     height:100%;
 }
 .row{
-
     flex:1;
     align-items:center;
 }
 
 .col{
-
     flex:1;
     align-items:center;
-
+}
+.icon{
+  display:inline;
+  align: center;
+  height:100%;
+  width:100%;
+}
+.t-button{
+  background-color:transparent;
+  font-size:65px;
 }
