@@ -39,7 +39,37 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $ionicModal.fromTemplateUrl('templates/logout.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+ // Triggered in the logout modal to close it
+  $scope.closeLogout = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the logout modal
+  $scope.logout = function() {
+    $scope.modal.show();
+  };
+
+   // Perform the logout action 
+  $scope.doLogout = function() {
+    console.log('Doing logout', $scope.loginData);
+
+    // Simulate a logout delay when removing local memory 
+    $timeout(function() {
+      $scope.closeLogout();
+    }, 1000);
+  };
+
 })
+
+
+
 
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
