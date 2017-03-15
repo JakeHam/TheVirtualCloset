@@ -6,95 +6,167 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-    .state('app.myCloset', {
-      url: '/myCloset',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/myCloset.html'
-          //controller: 'MyClosetCtrl'
-        }
-      }
-    })
-    .state('app.calendar', {
-      url: '/calendar',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/calendar.html'
-          //controller: 'CalendarCtrl'
-        }
-      }
-    })
-    .state('app.connections', {
-      url: '/connections',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/connections.html'
-          // controller: 'ConnectionsCtrl'
-        }
-      }
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleDefault();
+            }
+        });
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
-});
+    .config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                templateUrl: 'templates/menu.html',
+                controller: 'AppCtrl'
+            })
+
+
+            .state('app.tops', {
+                url: '/tops',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/tops.html'
+                    }
+                }
+            })
+
+
+
+            .state('app.pants', {
+                url: '/pants',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/pants.html'
+                    }
+                }
+            })
+
+            .state('app.shoes', {
+                url: '/shoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/shoes.html'
+                    }
+                }
+            })
+
+            .state('app.formal', {
+                url: '/formal',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/formal.html'
+                    }
+                }
+            })
+
+            .state('app.jackets', {
+                url: '/jackets',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/jackets.html'
+                    }
+                }
+            })
+
+            .state('app.accessories', {
+                url: '/accessories',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/closet/accessories.html'
+                    }
+                }
+            })
+
+
+
+
+
+
+            .state('app.search', {
+                url: '/search',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/search.html'
+                    }
+                }
+            })
+
+            .state('app.mycloset', {
+                url: '/mycloset',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/mycloset.html'
+                    }
+                }
+            })
+
+
+            .state('app.outfits', {
+                url: '/outfits',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/outfits.html'
+                    }
+                }
+            })
+
+            .state('app.calendar', {
+                url: '/calendar',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/calendar.html'
+                    }
+                }
+            })
+
+            .state('app.wishlist', {
+                url: '/wishlist',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/wishlist.html'
+                    }
+                }
+            })
+
+            .state('app.options', {
+                url: '/options',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/options.html'
+                    }
+                }
+            })
+
+            .state('app.logout', {
+                url: '/logout',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/logout.html'
+                    }
+                }
+            })
+
+
+            .state('app.connections', {
+                url: '/connections',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/connections.html'
+                    }
+                }
+            });
+        // if none of the above states are matched, use this as the fallback
+        $urlRouterProvider.otherwise('/app/mycloset');
+    });

@@ -9,7 +9,6 @@
     flex:1;
     align-items:center;
 }
-
 .col{
     flex:1;
     align-items:center;
@@ -20,7 +19,12 @@
   height:100%;
   width:100%;
 }
-.t-button{
-  background-color:transparent;
+.c-button{
+  background:transparent;
   font-size:65px;
+    color:black;
+    text-decoration: none;
+}
+.c-button:hover{
+    color:dimgrey;
 }
