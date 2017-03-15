@@ -58,6 +58,33 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    .state('app.myCloset', {
+      url: '/myCloset',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/myCloset.html'
+          //controller: 'MyClosetCtrl'
+        }
+      }
+    })
+    .state('app.calendar', {
+      url: '/calendar',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/calendar.html'
+          //controller: 'CalendarCtrl'
+        }
+      }
+    })
+    .state('app.connections', {
+      url: '/connections',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/connections.html'
+          // controller: 'ConnectionsCtrl'
+        }
+      }
+    })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
