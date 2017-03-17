@@ -3,11 +3,10 @@ describe('LoginController', function () {
     var controller,
         virtualClosetMock,
         stateMock,
-        deferredLogin,
-        ionicPopupMock;
+        deferredLogin;
 
     // Load the App Module
-    beforeEach(module('app'));
+    beforeEach(module('starter'));
 
     // Instantiate the Controller and Mocks
     beforeEach(inject(function ($controller, $q) {
@@ -21,12 +20,8 @@ describe('LoginController', function () {
         // mock $state
         stateMock = jasmine.createSpyObj('$state spy', ['go']);
 
-        // mock $ionicPopup
-        ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['alert']);
-
         // instantiate LoginController
         controller = $controller('LoginController', {
-                        '$ionicPopup': ionicPopupMock,
                         '$state': stateMock,
                         'VirtualCloset': virtualClosetMock }
         );
@@ -42,6 +37,7 @@ describe('LoginController', function () {
             controller.doLogin();
         }));
 
+        // TODO: Currently fails do to no login implementation
         it('should call login on VirtualClosetApp', function () {
             expect(virtualClosetMock.login).toHaveBeenCalledWith('test1', 'password1');
         });
@@ -49,17 +45,16 @@ describe('LoginController', function () {
         describe('when the login is executed,', function () {
             it('if successful, should change state to my-closet', function () {
 
-                // TODO: Mock the login response from VirtualCloset
+                // TODO: Mock the login response
 
                 expect(stateMock.go).toHaveBeenCalledWith('my-closet');
             });
 
             // TODO: Double-check intended case with front-end team
-            it('if unsuccessful, should show a popup', function() {
+            it('if unsuccessful, should show error message', function() {
 
-                // TODO: Mock the login response from VirtualCloset
+                // TODO: Mock the login response
 
-                expect(ionicPopupMock.alert).toHaveBeenCalled();
             });
         });
     });
