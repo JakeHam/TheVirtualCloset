@@ -1,9 +1,19 @@
-<ion-view view-title="Logout">
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Logout</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogout()">Close</button>
+    </div>
+  </ion-header-bar>
   <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-    <h3 align="center">Logout Blank Page</h3>
+    <form ng-submit="doLogout()">
+        <label class="item item-input">
+          <span >You've logged out</span>
+        </label>
+
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Okay!</button>
+        </label>
+    </form>
   </ion-content>
-</ion-view>
+</ion-modal-view>

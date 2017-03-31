@@ -54,22 +54,39 @@ angular.module('starter.controllers', [])
   // Open the logout modal
   $scope.logout = function() {
     $scope.modal.show();
+
   };
 
    // Perform the logout action 
   $scope.doLogout = function() {
-    console.log('Doing logout', $scope.loginData);
-
+    console.log('Doing logout', $scope.logoutData);
     // Simulate a logout delay when removing local memory 
     $timeout(function() {
       $scope.closeLogout();
     }, 1000);
   };
 
+ $scope.getItems = function(){
+    // get from backend
+    // DELETE below if search is done on Backend
+    // set val to the value of the ev target
+    
+    //if the value is an empty string don't filter the items
+    // if (val && val.trim() != '') {
+    //   this.items = this.items.filter((item) => {
+    //     return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    //   })
+    // }
+  }
+
 })
 
 
-
+ .controller('SearchCtrl', function($scope, $stateParams) {
+   // getItems() {
+   //  }
+    //alert("got to search controller");
+ })
 
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [

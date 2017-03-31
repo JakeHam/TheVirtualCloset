@@ -109,6 +109,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/menu/search.html'
+                        //controller: 'SearchCtrl'
                     }
                 }
             })
@@ -159,14 +160,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 }
             })
 
-            .state('app.logout', {
-                url: '/logout',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/menu/logout.html'
-                    }
-                }
-            })
+            // .state('app.logout', {
+            //     url: '/logout',
+            //     views: {
+            //         'menuContent': {
+            //             templateUrl: 'templates/menu/logout.html'
+            //             //controller: 'LogoutCtrl'
+            //         }
+            //     }
+            // })
 
 
             .state('app.connections', {
