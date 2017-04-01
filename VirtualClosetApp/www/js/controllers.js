@@ -30,12 +30,10 @@ angular.module('starter.controllers', [])
     alert("got to logout controller");
  })
  .controller('loginCtrl', function($scope, $ionicPopup, $state) {
-     $ionicModal.fromTemplateUrl('templates/menu/login.html',{
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-      $scope.modal.show();
+     var myPopup = $ionicPopup.show({
+     templateUrl: 'templates/menu/login.html',
+     scope: $scope
+   });
 
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
