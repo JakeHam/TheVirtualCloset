@@ -35,10 +35,27 @@ angular.module('starter.controllers', [])
      scope: $scope
    });
 
+    $scope.register = function () {
+      console.log($scope.email);
+      console.log($scope.password);
+      $scope.createUser($scope.email, $scope.password);
+    }
+    $scope.createUser = function(email, password) {
+      alert("In Create");
+      return firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
+        $ionicLoading.show({ template: 'Created Firebase User!', noBackdrop: true, duration: 1000 });
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        $ionicLoading.show({ template: 'Creation of user unsuccessful! Try again!', noBackdrop: true, duration: 1000 });
+      });
+    };
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+    //alert("got to doLogin");
 
+    $scope.createUser("Austin", "Mease");
+    alert("got past register");
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
     $timeout(function() {
@@ -47,7 +64,8 @@ angular.module('starter.controllers', [])
     };
      // Triggered in the login modal to close it
     $scope.closeLogin = function() {
-      $scope.modal.hide();
+      alert("got to close");
+      myPopup.close();
     };
  })
 
