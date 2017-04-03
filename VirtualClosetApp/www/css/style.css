@@ -28,3 +28,7 @@
 .c-button:hover{
     color:dimgrey;
 }
+.scroll{
+  height: 100%;
+  width: 100%;
+}

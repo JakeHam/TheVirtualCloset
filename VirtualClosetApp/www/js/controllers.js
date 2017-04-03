@@ -10,61 +10,7 @@ angular.module('starter.controllers', [])
   //});
 
   // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/menu/login.html',{
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-
-  $ionicModal.fromTemplateUrl('templates/menu/logout.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
- // Triggered in the logout modal to close it
-  $scope.closeLogout = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the logout modal
-  $scope.logout = function() {
-    $scope.modal.show();
-
-  };
-
-   // Perform the logout action 
-  $scope.doLogout = function() {
-    console.log('Doing logout', $scope.logoutData);
-    // Simulate a logout delay when removing local memory 
-    $timeout(function() {
-      $scope.closeLogout();
-    }, 1000);
-  };
+  $scope.loginData = {}; 
 
  $scope.getItems = function(){
     // get from backend
@@ -80,7 +26,48 @@ angular.module('starter.controllers', [])
   }
 
 })
+.controller('logoutCtrl', function($scope) {
+    alert("got to logout controller");
+ })
+ .controller('loginCtrl', function($scope, $ionicPopup, $state) {
+     var myPopup = $ionicPopup.show({
+     templateUrl: 'templates/menu/login.html',
+     scope: $scope
+   });
 
+    $scope.register = function () {
+      console.log($scope.email);
+      console.log($scope.password);
+      $scope.createUser($scope.email, $scope.password);
+    }
+    $scope.createUser = function(email, password) {
+      alert("In Create");
+      return firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
+        $ionicLoading.show({ template: 'Created Firebase User!', noBackdrop: true, duration: 1000 });
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        $ionicLoading.show({ template: 'Creation of user unsuccessful! Try again!', noBackdrop: true, duration: 1000 });
+      });
+    };
+    // Perform the login action when the user submits the login form
+    $scope.doLogin = function() {
+    //alert("got to doLogin");
+
+    $scope.createUser("Austin", "Mease");
+    alert("got past register");
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+        $scope.closeLogin();
+      }, 1000);
+    };
+     // Triggered in the login modal to close it
+    $scope.closeLogin = function() {
+      alert("got to close");
+      myPopup.close();
+    };
+ })
 
  .controller('SearchCtrl', function($scope, $stateParams) {
    // getItems() {

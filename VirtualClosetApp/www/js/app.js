@@ -170,15 +170,24 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 }
             })
 
-            // .state('app.logout', {
-            //     url: '/logout',
-            //     views: {
-            //         'menuContent': {
-            //             templateUrl: 'templates/menu/logout.html'
-            //             //controller: 'LogoutCtrl'
-            //         }
-            //     }
-            // })
+             .state('app.logout', {
+                url: '/logout',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/menu/logout.html',
+                        controller: 'logoutCtrl'
+                    }
+                }
+            })
+            .state('app.login', {
+                url: '/login',
+                views: {
+                    'menuContent': {
+                        //templateUrl: 'templates/menu/login.html',
+                        controller: 'loginCtrl'
+                    }
+                }
+            })
 
 
             .state('app.connections', {
