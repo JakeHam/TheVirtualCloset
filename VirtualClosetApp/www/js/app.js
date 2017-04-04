@@ -173,6 +173,17 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                 }
             })
 
+            // Define register.
+              .state('app.register', {
+                url: '/register',
+                views: {
+                  'menuContent': {
+                    templateUrl: 'templates/authentication/register.html'
+                  }
+                },
+                controller: 'registerCtrl'
+              })
+
              .state('app.logout', {
                 url: '/logout',
                 views: {
@@ -185,11 +196,11 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
             .state('app.login', {
                 url: '/login',
                 views: {
-                    'menuContent': {
-                        //templateUrl: 'templates/menu/login.html',
-                        controller: 'loginCtrl'
-                    }
-                }
+                  'menuContent': {
+                    templateUrl: 'templates/authentication/login.html'
+                  }
+                },
+                controller: 'loginCtrl'
             })
 
 
@@ -202,7 +213,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                 }
             });
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/mycloset');
+        $urlRouterProvider.otherwise('/app/login');
     });
 
     app.controller('MainCtrl', function($scope, $cordovaCamera) {

@@ -1,12 +1,4 @@
-<ion-view view-title="logout">
-  <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-  <h3 align="center">logout Blank Page</h3>
-</ion-content>
-<!-- </ion-view><ion-modal-view>
+<ion-modal-view>
   <ion-header-bar>
     <h1 class="title">Logout</h1>
     <div class="buttons">
@@ -16,12 +8,16 @@
   <ion-content>
     <form ng-submit="doLogout()">
         <label class="item item-input">
-          <span >You've logged out</span>
+          <span >Are you sure you want to logout?</span>
         </label>
 
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Okay!</button>
+          <button class="button button-block button-negative" type="submit">Yes</button>
         </label>
+
     </form>
+    <label class="item">
+      <input class="button button-block button-positive" type="button" value="No" ng-click="backToMyCloset()"/>
+    </label>
   </ion-content>
-</ion-modal-view> -->
+</ion-modal-view>
