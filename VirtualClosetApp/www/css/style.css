@@ -32,3 +32,12 @@
   height: 100%;
   width: 100%;
 }
+.centerDiv, #registerButton {
+  margin:0 auto;
+  text-align: center;
+}
+
+#email, #password {
+  margin:2% auto;
+  border: 1px solid;
+}
