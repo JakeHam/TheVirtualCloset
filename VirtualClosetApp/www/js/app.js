@@ -187,7 +187,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 controller: 'registerCtrl'
               })
 
-            //  .state('app.logout', {
+            //  .state('app.logout', { test
             //     url: '/logout',
             //     views: {
             //         'menuContent': {
