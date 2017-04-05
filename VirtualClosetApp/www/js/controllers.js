@@ -315,27 +315,30 @@ angular.module('starter.controllers', [])
     ];
   })
 
- app.controller('MainCtrl', function($scope, $cordovaCamera) {
-      $scope.takeImage = function() {
-        var options = {
-          quality: 80,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 250,
-          targetHeight: 250,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-        };
+  //camera controller
+.controller("CameraCtrl", function($scope, $cordovaCamera) {
+      //console.log('its workfsdfsfsdfing')
+     $scope.takePicture = function() {
+       //console.log('its workfsd111111111111fsfsdfing')
+       var options = {
+         quality : 80,
+         destinationType : Camera.DestinationType.DATA_URL,
+         sourceType : Camera.PictureSourceType.CAMERA,
+         allowEdit : true,
+         encodingType: Camera.EncodingType.JPEG,
+         targetWidth: 250,
+         targetHeight: 250,
+         popoverOptions: CameraPopoverOptions,
+         saveToPhotoAlbum: false
+       };
 
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          $scope.srcImage = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
-        });
-      }
-    })
+       $cordovaCamera.getPicture(options).then(function(imageData) {
+         $scope.imgURI = "data:image/jpeg;base64," + imageData;
+       }, function(err) {
+         // An error occured. Show a message to the user
+       });
+     }
+   })
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 

@@ -5,8 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers'])
-//angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
+ //angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -23,7 +23,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         });
     })
-
 
 
 
@@ -91,10 +90,13 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             url: '/newItemWishlist',
             views: {
               'menuContent': {
-                templateUrl: 'templates/closet/newItemWishlist.html'
-              }
-            }
+            templateUrl: 'templates/closet/newItemWishlist.html'
+             }
+            },
+            controller:'CameraCtrl'
           })
+
+
 
             .state('app.jackets', {
                 url: '/jackets',
@@ -113,10 +115,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     }
                 }
             })
-
-
-
-
 
 
             .state('app.search', {
@@ -218,3 +216,4 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/login');
     });
+
