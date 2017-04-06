@@ -77,11 +77,7 @@ angular.module('starter.controllers', [])
     $scope.backToMyCloset = function () {
       $scope.closeLogout();
     }
-
-
-
   })
-
 
   // Register controller
   .controller('registerCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
@@ -336,6 +332,32 @@ angular.module('starter.controllers', [])
         });
       }
     })
+
+ .controller('CalendarCtrl', function($scope, Events) {
+    Events.get().then(function(events) {
+        console.log("events", events);  
+        $scope.events = events;
+    }); 
+    var addEvent = function(event) {
+    var deferred = $q.defer();
+
+    $cordovaCalendar.createEvent({
+        title: event.title,
+        notes: event.description,
+        startDate: event.date,
+        endDate:event.enddate
+    }).then(function (result) {
+        console.log('success');console.dir(result);
+        deferred.resolve(1);
+    }, function (err) {
+        console.log('error');console.dir(err);
+        deferred.resolve(0);
+    }); 
+    
+    return deferred.promise;
+
+}
+  })
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 
