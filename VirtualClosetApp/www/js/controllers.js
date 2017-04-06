@@ -311,7 +311,7 @@ angular.module('starter.controllers', [])
     ];
   })
 
- app.controller('MainCtrl', function($scope, $cordovaCamera) {
+ .controller('MainCtrl', function($scope, $cordovaCamera) {
       $scope.takeImage = function() {
         var options = {
           quality: 80,

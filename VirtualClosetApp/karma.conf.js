@@ -1,5 +1,4 @@
 // Karma configuration
-// Generated on Tue Mar 14 2017 23:06:07 GMT-0500 (Central Daylight Time)
 
 module.exports = function(config) {
   config.set({
@@ -15,12 +14,21 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../../VirtualClosetApp/www/lib/ionic/js/ionic.bundle.js',
-      '../../VirtualClosetApp/www/js/*.js',
-      '../../node_modules/angular-mocks/angular-mocks.js',
-      'unit-tests/**/*.js'
+        './node_modules/jquery/dist/jquery.min.js',
+        './www/lib/ionic/js/ionic.bundle.js',
+        './www/templates/**/*.html',
+        './www/js/app.js',
+        './www/js/controllers.js',
+        './tests/unit-tests/*.js'
     ],
 
+
+    plugins: [
+        "karma-chrome-launcher",
+        "karma-jasmine",
+        "karma-mocha-reporter",
+        "karma-ng-html2js-preprocessor"
+    ],
 
     // list of files to exclude
     exclude: [
@@ -30,13 +38,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      './www/templates/**/*.html': ['ng-html2js']
+    },
+
+    ngHtml2JsPreprocessor: {
+      moduleName: 'templates',
+      stripPrefix: './www/'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port
@@ -58,12 +72,12 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
