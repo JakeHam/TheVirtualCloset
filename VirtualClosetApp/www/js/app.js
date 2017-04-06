@@ -181,7 +181,6 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                 }
             })
 
-
             .state('app.search', {
                 url: '/search',
                 views: {
@@ -218,7 +217,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                     'menuContent': {
                         templateUrl: 'templates/menu/calendar.html'
                     }
-                }
+                },
+                controller: 'CalendarCtrl'
             })
 
             .state('app.wishlist', {
