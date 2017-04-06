@@ -202,6 +202,7 @@ angular.module('starter.controllers', [])
     }
   })
 
+
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory) {
 
@@ -311,27 +312,69 @@ angular.module('starter.controllers', [])
     ];
   })
 
- app.controller('MainCtrl', function($scope, $cordovaCamera) {
-      $scope.takeImage = function() {
-        var options = {
-          quality: 80,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 250,
-          targetHeight: 250,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-        };
+  //camera controller
+.controller("CameraCtrl", function($scope, $cordovaCamera,$ionicLoading, $state, $rootScope, Item, $ionicHistory) {
+      //console.log('its workfsdfsfsdfing')
+     $scope.takePicture = function() {
+       //console.log('its workfsd111111111111fsfsdfing')
+       var options = {
+         quality : 80,
+         destinationType : Camera.DestinationType.DATA_URL,
+         sourceType : Camera.PictureSourceType.CAMERA,
+         allowEdit : true,
+         encodingType: Camera.EncodingType.JPEG,
+         targetWidth: 250,
+         targetHeight: 250,
+         popoverOptions: CameraPopoverOptions,
+         saveToPhotoAlbum: false
+       };
 
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          $scope.srcImage = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
-        });
+       $cordovaCamera.getPicture(options).then(function(imageData) {
+         $scope.imgURI = "data:image/jpeg;base64," + imageData;
+       }, function(err) {
+         // An error occured. Show a message to the user
+       });
+     }
+
+      $scope.addwishlistitem = function(){
+
+
+       createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+
       }
-    })
+
+
+   })
+
+  //wishlist controller
+  .controller('WishlishCtrl', function($scope, $rootScope) {
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+      var wishlist = snapshot.val().wishlist;
+
+
+
+
+
+    });
+  })
+
+
+
+    //$scope.onItemDelete =function(item){
+      //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
+    //}
+
+    //$scope.dorefresh = function(){
+      //get data from the source
+      //$scope.wishlist = Wishlist.all();
+    //}
+
+
 
  .controller('CalendarCtrl', function($scope, Events) {
     Events.get().then(function(events) {
@@ -362,3 +405,22 @@ angular.module('starter.controllers', [])
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
