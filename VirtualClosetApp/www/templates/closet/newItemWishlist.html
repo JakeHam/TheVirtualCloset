@@ -13,25 +13,26 @@
 
     <!--<img ng-src="{{srcImage || 'img/dummy.jpg'}}" id="srcImage" width="250 " height="250" style="display: block; margin: 0 auto;"/><br/>
 -->
-    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id = "itemImg">
     <img ng-show="imgURI === undefined" ng-src="http://placehold.it/250x250">
     <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button><br/>
 
     </body>
 
     <div class="card">
-      <label class ="item item-input">
+      <label class ="item item-input" id="itemName" >
+        <span class = "input-label">Item name</span>
+        <input type="text" placeholder="whatever you like">
+      </label>
+
+
+      <label class ="item item-input" id = "itemBrand">
         <span class = "input-label">Brand</span>
         <input type="text" placeholder="e.g. Nike">
       </label>
 
-      <label class ="item item-input">
-        <span class = "input-label">Size</span>
-        <input type="text" placeholder="e.g. XL">
-      </label>
 
-
-      <label class ="item item-input">
+      <label class ="item item-input" id = "itemColor">
         <span class = "input-label">Color</span>
         <input type="text" placeholder="e.g. Red">
       </label>
@@ -39,6 +40,7 @@
       <a href="#/app/wishlist" class ="button button-positive">
        Save
       </a>
+
 
     </div>
 

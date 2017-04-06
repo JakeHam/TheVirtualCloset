@@ -206,6 +206,7 @@ angular.module('starter.controllers', [])
     }
   })
 
+
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory) {
 
@@ -316,7 +317,7 @@ angular.module('starter.controllers', [])
   })
 
   //camera controller
-.controller("CameraCtrl", function($scope, $cordovaCamera) {
+.controller("CameraCtrl", function($scope, $cordovaCamera,$ionicLoading, $state, $rootScope, Item, $ionicHistory) {
       //console.log('its workfsdfsfsdfing')
      $scope.takePicture = function() {
        //console.log('its workfsd111111111111fsfsdfing')
@@ -338,8 +339,66 @@ angular.module('starter.controllers', [])
          // An error occured. Show a message to the user
        });
      }
+
+      $scope.addwishlistitem = function(){
+
+
+       createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+
+      }
+
+
    })
+
+  //wishlist controller
+  .controller('WishlishCtrl', function($scope, $rootScope) {
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+      var wishlist = snapshot.val().wishlist;
+
+
+
+
+
+    });
+  })
+
+
+
+    //$scope.onItemDelete =function(item){
+      //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
+    //}
+
+    //$scope.dorefresh = function(){
+      //get data from the source
+      //$scope.wishlist = Wishlist.all();
+    //}
+
+
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

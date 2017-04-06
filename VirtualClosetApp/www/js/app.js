@@ -162,7 +162,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                     'menuContent': {
                         templateUrl: 'templates/menu/wishlist.html'
                     }
-                }
+                },
+                controller:'WishlishCtrl'
             })
 
             .state('app.options', {
