@@ -41,3 +41,10 @@
   margin:2% auto;
   border: 1px solid;
 }
+
+.closetbutton h3 {
+    height: 50%;
+}
+.closetbutton .popup{
+    width:27%;
+}

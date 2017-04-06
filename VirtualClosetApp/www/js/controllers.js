@@ -77,7 +77,11 @@ angular.module('starter.controllers', [])
     $scope.backToMyCloset = function () {
       $scope.closeLogout();
     }
+
+
+
   })
+
 
   // Register controller
   .controller('registerCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
@@ -311,33 +315,43 @@ angular.module('starter.controllers', [])
     ];
   })
 
- app.controller('MainCtrl', function($scope, $cordovaCamera) {
-      $scope.takeImage = function() {
-        var options = {
-          quality: 80,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 250,
-          targetHeight: 250,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-        };
+   .controller('OutfitsCtrl', function($scope, $ionicPopup) {
+       $scope.showPopup = function() {
+         $scope.data = {}
+         var outfitPopup = $ionicPopup.show({
+           template: '<input type = "text" ng-modal = "data.outfit" placeholder="Outfit Name">',
+           title: 'New Outfit',
+           scope: $scope,
+           cssClass: 'closetbutton',
 
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          $scope.srcImage = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
-        });
-      }
-    })
+           buttons: [
+             {text: 'Cancel'},
+             {
+               text: 'Add Items',
+               onTap: function (e) {
+                 location.href = "#/app/mycloset";
+               }
+             },
+
+           ],
+
+         });
+         outfitPopup.then(function (res) {
+           console.log('Tapped!', res);
+         });
+       };
+
+       $scope.selectItem= function(){
+
+       }
+
+   })
 
  .controller('CalendarCtrl', function($scope, Events) {
     Events.get().then(function(events) {
-        console.log("events", events);  
+        console.log("events", events);
         $scope.events = events;
-    }); 
+    });
     var addEvent = function(event) {
     var deferred = $q.defer();
 
@@ -352,8 +366,8 @@ angular.module('starter.controllers', [])
     }, function (err) {
         console.log('error');console.dir(err);
         deferred.resolve(0);
-    }); 
-    
+    });
+
     return deferred.promise;
 
 }

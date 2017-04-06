@@ -1,4 +1,12 @@
 <ion-view view-title="Jackets">
+  <ion-nav-buttons side = "secondary">
+  <button ng-click="selectItem()">Select</button>
+  <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side = "secondary" ng-if="addItem">
+    <button>Select</button>
+  </ion-nav-buttons>
   <ion-content>
     <style>h3 {
     height: 110px;
