@@ -1,0 +1,48 @@
+exports.config = {
+  framework: 'jasmine',
+
+  instrument: {
+    files: './tests/end-to-end-tests/**/*.js',
+    options: {
+      lazy: true,
+      basePath: "instrumented"
+    }
+  },
+
+  onPrepare: function() {
+    var jasmineReporters = require('jasmine-reporters');
+    jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter( {
+      consolidateAll: true,
+      savePath:       'testresults',
+      filePrefix:     'xmloutput'
+    }));
+
+    var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+    jasmine.getEnv().addReporter(new SpecReporter( {
+      displayStacktrace: true,
+      displayFailuresSummary: true,
+      displayPendingSummary: true,
+      displaySuccessfulSpec: true,
+      displayFailedSpec: true,
+      displayPendingSpec: true,
+      displaySpecDuration: false,
+      displaySuiteNumber: false,
+      colors: {
+        success: 'green',
+        failure: 'red',
+        pending: 'yellow'
+      },
+      customProcessors: []
+    }));
+  },
+
+  capabilities: {
+    'browserName': 'chrome',
+    'chromeOptions': {
+      args: ['--disable-web-security']
+    }
+  },
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+  baseUrl: 'http://192.168.1.44:8100',
+  specs: ['./tests/end-to-end-tests/*.tests.js']
+};

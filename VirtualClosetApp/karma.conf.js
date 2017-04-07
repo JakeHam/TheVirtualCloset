@@ -1,5 +1,4 @@
 // Karma configuration
-// Generated on Tue Mar 14 2017 23:06:07 GMT-0500 (Central Daylight Time)
 
 module.exports = function(config) {
   config.set({
@@ -15,12 +14,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../../VirtualClosetApp/www/lib/ionic/js/ionic.bundle.js',
-      '../../VirtualClosetApp/www/js/*.js',
-      '../../node_modules/angular-mocks/angular-mocks.js',
-      'unit-tests/**/*.js'
+        './www/lib/ionic/js/ionic.bundle.js',
+        './www/js/**/*.js',
+        './node_modules/angular-mocks/angular-mocks.js',
+        './tests/unit-tests/**/*.js'
     ],
 
+
+    plugins: [
+      'karma-jasmine',
+      'karma-mocha-reporter',
+      'karma-chrome-launcher',
+      'karma-coverage'
+    ],
 
     // list of files to exclude
     exclude: [
@@ -30,14 +36,25 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      './www/js/**/!(*min).js': 'coverage',
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha', 'coverage'],
 
+    // mocha reporter options
+    mochaReporter: {
+      // comment/uncomment to view/hide stack traces
+      // maxLogLines: -1
+    },
+
+    // coverage reporter options
+    coverageReporter: {
+      type : 'text',
+      dir : 'tests/coverage/'
+    },
 
     // web server port
     port: 9876,
@@ -58,12 +75,12 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
