@@ -79,7 +79,6 @@ angular.module('starter.controllers', [])
     }
 
 
-
   })
 
 
@@ -240,8 +239,7 @@ angular.module('starter.controllers', [])
     $scope.init();
 
     // This function creates the item object with the predefined structure.
-    function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory)
-    {
+    function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory) {
       // Get accountID {email} for cur user.
       var user = firebase.auth().currentUser;
       var getUserEmail = user.email;
@@ -254,8 +252,7 @@ angular.module('starter.controllers', [])
     }
 
     // This function calls the firebase-database to add the existing "myCloset" object.
-    function addItemToCloset(itemObj, itemCategory)
-    {
+    function addItemToCloset(itemObj, itemCategory) {
       var updates = {};
       updates[$rootScope.email + '/' + itemCategory + '/' + itemObj._name] = itemObj;
       return firebase.database().ref().update(updates);
@@ -315,27 +312,175 @@ angular.module('starter.controllers', [])
     ];
   })
 
- app.controller('MainCtrl', function($scope, $cordovaCamera) {
-      $scope.takeImage = function() {
-        var options = {
-          quality: 80,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 250,
-          targetHeight: 250,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-        };
+  .controller('MainCtrl', function ($scope, $cordovaCamera) {
+    $scope.takeImage = function () {
+      var options = {
+        quality: 80,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 250,
+        targetHeight: 250,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+      };
 
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          $scope.srcImage = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
-        });
+      $cordovaCamera.getPicture(options).then(function (imageData) {
+        $scope.srcImage = "data:image/jpeg;base64," + imageData;
+      }, function (err) {
+        // error
+      });
+    }
+  })
+
+
+  .controller('ClosetCtrl', function ($scope, $rootScope) {
+
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+
+      var tops = snapshot.val().Tops;
+      $scope.finalTopsArr = {};
+      for(var i =0; i< tops.size; i++){
+        var top = tops[i];
+        top.brand = tops[i]._brand;
+        top.color = tops[i]._color;
+        top.img = tops[i]._img;
+        top.name = tops[i].name;
+
+        finalTopsArr.push(top);
       }
-    })
+
+      var pants = snapshot.val().Pants;
+      $scope.finalPantsArr = {};
+      for(var i =0; i< pants.size; i++){
+        var pant = pants[i];
+        pant.brand = pants[i]._brand;
+        pant.color = pants[i]._color;
+        pant.img = pants[i]._img;
+        pant.name = pants[i].name;
+
+        finalPantsArr.push(pant);
+      }
+
+      var shoes = snapshot.val().Shoes;
+      $scope.finalShoesArr = {};
+      for(var i =0; i< shoes.size; i++){
+        var shoe = shoes[i];
+        shoe.brand = shoes[i]._brand;
+        shoe.color = shoes[i]._color;
+        shoe.img = shoes[i]._img;
+        shoe.name = shoes[i].name;
+
+        finalShoesArr.push(shoe);
+      }
+
+      var formals = snapshot.val().Formal;
+      $scope.finalFormalsArr = {};
+      for(var i =0; i< formals.size; i++){
+        var formal = formals[i];
+        formal.brand = formals[i]._brand;
+        formal.color = formals[i]._color;
+        formal.img = formals[i]._img;
+        formal.name = formals[i].name;
+
+        finalFormalsArr.push(formal);
+      }
+
+      var jackets = snapshot.val().Jackets;
+      $scope.finalJacketsArr = {};
+      for(var i =0; i< jackets.size; i++){
+        var jacket = jackets[i];
+        jacket.brand = jackets[i]._brand;
+        jacket.color = jackets[i]._color;
+        jacket.img = jackets[i]._img;
+        jackets.name = jackets[i].name;
+
+        finalJacketsArr.push(jacket);
+      }
+
+      var accessories = snapshot.val().Accessories;
+      $scope.finalAccessoriesArr = {};
+      for(var i =0; i< accessories.size; i++){
+        var accessory = accessories[i];
+        accessory.brand = accessories[i]._brand;
+        accessory.color = accessories[i]._color;
+        accessory.img = accessories[i]._img;
+        accessory.name = accessories[i].name;
+
+        finalAccessoriesArr.push(accessory);
+      }
+
+      $scope.first = true;
+      $scope.second = false;
+      $scope.outfitList = {};
+
+      $scope.checkFlag = function() {
+          if($rootScope.flag == true){
+            if($scope.first) {
+              $scope.buttonType = "ion-button full outline";
+              $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
+              $scope.second = true;
+              $scope.first = false;
+              scope.outfitList.push($scope.top);
+            }
+            else if ($scope.second){
+              $scope.buttonType = "button button-full";
+              $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
+              $scope.second = false;
+              $scope.first = true;
+              scope.outfitList.remove($scope.top);
+            }
+          }
+          else{
+            $ionicLoading.show({ template: 'SELECTED!', noBackdrop: true, duration: 1000 });
+          }
+      }
+
+    });
+
+
+  })
+
+
+  .controller('OutfitsCtrl', function($scope, $ionicPopup, $rootScope) {
+    $scope.showPopup = function() {
+      $scope.data = {}
+      var outfitPopup = $ionicPopup.show({
+        template: '<input type = "text" ng-modal = "data.outfit" placeholder="Outfit Name">',
+        title: 'New Outfit',
+        scope: $scope,
+        cssClass: 'closetbutton',
+
+        buttons: [
+          {text: 'Cancel'},
+          {
+            text: 'Add Items',
+            onTap: function (e) {
+              $rootScope.flag = true;
+              location.href = "#/app/mycloset";
+            }
+          },
+
+        ],
+
+      });
+      outfitPopup.then(function (res) {
+        console.log('Tapped!', res);
+      });
+    };
+
+    $scope.selectItem= function(){
+
+    }
+
+  })
+
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 

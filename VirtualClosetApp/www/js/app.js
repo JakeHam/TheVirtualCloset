@@ -44,7 +44,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/tops.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -55,7 +56,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/pants.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.shoes', {
@@ -64,7 +66,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/shoes.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.formal', {
@@ -73,7 +76,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/formal.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -83,7 +87,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/newItem.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -102,7 +107,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/jackets.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.accessories', {
@@ -111,7 +117,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/accessories.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -146,7 +153,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/menu/outfits.html'
                     }
-                }
+                },
+              controller: 'OutfitsCtrl'
             })
 
             .state('app.calendar', {

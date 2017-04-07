@@ -1,9 +1,11 @@
-<ion-view view-title="Jackets">
+<ion-view view-title="Jackets", ng-controller="ClosetCtrl">
   <ion-content>
     <style>h3 {
     height: 110px;
     }
     </style>
     <h3 align="center">Jackets Blank Page</h3>
+    <li class="button button-full" ng-repeat="jacket in finalFormalsArr">
+      Brand: {{jacket.brand}}<br>Color: {{jacket.color}} <br>Name: {{jacket.name}} <br>Image: {{jacket.img}}</li>
   </ion-content>
 </ion-view>
