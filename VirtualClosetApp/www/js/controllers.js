@@ -202,6 +202,7 @@ angular.module('starter.controllers', [])
     }
   })
 
+
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory) {
 
@@ -311,33 +312,75 @@ angular.module('starter.controllers', [])
     ];
   })
 
- .controller('MainCtrl', function($scope, $cordovaCamera) {
-      $scope.takeImage = function() {
-        var options = {
-          quality: 80,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 250,
-          targetHeight: 250,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-        };
+  //camera controller
+.controller("CameraCtrl", function($scope, $cordovaCamera,$ionicLoading, $state, $rootScope, Item, $ionicHistory) {
+      //console.log('its workfsdfsfsdfing')
+     $scope.takePicture = function() {
+       //console.log('its workfsd111111111111fsfsdfing')
+       var options = {
+         quality : 80,
+         destinationType : Camera.DestinationType.DATA_URL,
+         sourceType : Camera.PictureSourceType.CAMERA,
+         allowEdit : true,
+         encodingType: Camera.EncodingType.JPEG,
+         targetWidth: 250,
+         targetHeight: 250,
+         popoverOptions: CameraPopoverOptions,
+         saveToPhotoAlbum: false
+       };
 
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          $scope.srcImage = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
-        });
+       $cordovaCamera.getPicture(options).then(function(imageData) {
+         $scope.imgURI = "data:image/jpeg;base64," + imageData;
+       }, function(err) {
+         // An error occured. Show a message to the user
+       });
+     }
+
+      $scope.addwishlistitem = function(){
+
+
+       createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+
       }
-    })
+
+
+   })
+
+  //wishlist controller
+  .controller('WishlishCtrl', function($scope, $rootScope) {
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+      var wishlist = snapshot.val().wishlist;
+
+
+
+
+
+    });
+  })
+
+
+
+    //$scope.onItemDelete =function(item){
+      //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
+    //}
+
+    //$scope.dorefresh = function(){
+      //get data from the source
+      //$scope.wishlist = Wishlist.all();
+    //}
+
+
 
  .controller('CalendarCtrl', function($scope, Events) {
     Events.get().then(function(events) {
-        console.log("events", events);  
+        console.log("events", events);
         $scope.events = events;
-    }); 
+    });
     var addEvent = function(event) {
     var deferred = $q.defer();
 
@@ -352,13 +395,178 @@ angular.module('starter.controllers', [])
     }, function (err) {
         console.log('error');console.dir(err);
         deferred.resolve(0);
-    }); 
-    
+    });
+
     return deferred.promise;
 
 }
   })
 
+  .controller('ClosetCtrl', function ($scope, $rootScope) {
+
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+
+      var tops = snapshot.val().Tops;
+      $scope.finalTopsArr = {};
+      for(var i =0; i< tops.size; i++){
+        var top = tops[i];
+        top.brand = tops[i]._brand;
+        top.color = tops[i]._color;
+        top.img = tops[i]._img;
+        top.name = tops[i].name;
+
+        finalTopsArr.push(top);
+      }
+
+      var pants = snapshot.val().Pants;
+      $scope.finalPantsArr = {};
+      for(var i =0; i< pants.size; i++){
+        var pant = pants[i];
+        pant.brand = pants[i]._brand;
+        pant.color = pants[i]._color;
+        pant.img = pants[i]._img;
+        pant.name = pants[i].name;
+
+        finalPantsArr.push(pant);
+      }
+
+      var shoes = snapshot.val().Shoes;
+      $scope.finalShoesArr = {};
+      for(var i =0; i< shoes.size; i++){
+        var shoe = shoes[i];
+        shoe.brand = shoes[i]._brand;
+        shoe.color = shoes[i]._color;
+        shoe.img = shoes[i]._img;
+        shoe.name = shoes[i].name;
+
+        finalShoesArr.push(shoe);
+      }
+
+      var formals = snapshot.val().Formal;
+      $scope.finalFormalsArr = {};
+      for(var i =0; i< formals.size; i++){
+        var formal = formals[i];
+        formal.brand = formals[i]._brand;
+        formal.color = formals[i]._color;
+        formal.img = formals[i]._img;
+        formal.name = formals[i].name;
+
+        finalFormalsArr.push(formal);
+      }
+
+      var jackets = snapshot.val().Jackets;
+      $scope.finalJacketsArr = {};
+      for(var i =0; i< jackets.size; i++){
+        var jacket = jackets[i];
+        jacket.brand = jackets[i]._brand;
+        jacket.color = jackets[i]._color;
+        jacket.img = jackets[i]._img;
+        jackets.name = jackets[i].name;
+
+        finalJacketsArr.push(jacket);
+      }
+
+      var accessories = snapshot.val().Accessories;
+      $scope.finalAccessoriesArr = {};
+      for(var i =0; i< accessories.size; i++){
+        var accessory = accessories[i];
+        accessory.brand = accessories[i]._brand;
+        accessory.color = accessories[i]._color;
+        accessory.img = accessories[i]._img;
+        accessory.name = accessories[i].name;
+
+        finalAccessoriesArr.push(accessory);
+      }
+
+      $scope.first = true;
+      $scope.second = false;
+      $scope.outfitList = {};
+
+      $scope.checkFlag = function() {
+        if($rootScope.flag == true){
+          if($scope.first) {
+            $scope.buttonType = "ion-button full outline";
+            $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
+            $scope.second = true;
+            $scope.first = false;
+            scope.outfitList.push($scope.top);
+          }
+          else if ($scope.second){
+            $scope.buttonType = "button button-full";
+            $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
+            $scope.second = false;
+            $scope.first = true;
+            scope.outfitList.remove($scope.top);
+          }
+        }
+        else{
+          $ionicLoading.show({ template: 'SELECTED!', noBackdrop: true, duration: 1000 });
+        }
+      }
+
+    });
+
+
+  })
+
+
+  .controller('OutfitsCtrl', function($scope, $ionicPopup, $rootScope) {
+    $scope.showPopup = function() {
+      $scope.data = {}
+      var outfitPopup = $ionicPopup.show({
+        template: '<input type = "text" ng-modal = "data.outfit" placeholder="Outfit Name">',
+        title: 'New Outfit',
+        scope: $scope,
+        cssClass: 'closetbutton',
+
+        buttons: [
+          {text: 'Cancel'},
+          {
+            text: 'Add Items',
+            onTap: function (e) {
+              $rootScope.flag = true;
+              location.href = "#/app/mycloset";
+            }
+          },
+
+        ],
+
+      });
+      outfitPopup.then(function (res) {
+        console.log('Tapped!', res);
+      });
+    };
+
+    $scope.selectItem= function(){
+
+    }
+
+  })
+
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

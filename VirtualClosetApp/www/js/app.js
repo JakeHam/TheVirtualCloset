@@ -5,8 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers'])
-//angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
+ //angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -23,72 +23,74 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         });
     })
+
     .factory('Events', function($q) {
-        var incrementDate = function (date, amount) {
+	    var incrementDate = function (date, amount) {
                 var tmpDate = new Date(date);
                 tmpDate.setDate(tmpDate.getDate() + amount)
                 return tmpDate;
-        };
-        //create fake events, but make it dynamic so they are in the next week
-        var fakeEvents = [];
-        fakeEvents.push(
-            {
-                "title":"Meetup on Ionic",
-                "description":"We'll talk about beer, not Ionic.",
-                "date":incrementDate(new Date(), 1)
-            }   
-        );
-        fakeEvents.push(
-            {
-                "title":"Meetup on Beer",
-                "description":"We'll talk about Ionic, not Beer.",
-                "date":incrementDate(new Date(), 2)
-            }   
-        );
-        fakeEvents.push(
-            {
-                "title":"Ray's Birthday Bash",
-                "description":"Celebrate the awesomeness of Ray",
-                "date":incrementDate(new Date(), 4)
-            }   
-        );
-        fakeEvents.push(
-            {
-                "title":"Code Review",
-                "description":"Let's tear apart Ray's code.",
-                "date":incrementDate(new Date(), 5)
-            }   
-        );
-        var getEvents = function() {
-        var deferred = $q.defer();
-        /*
+	    };
+	    //create fake events, but make it dynamic so they are in the next week
+	    var fakeEvents = [];
+	    fakeEvents.push(
+			    {
+				"title":"Meetup on Ionic",
+				    "description":"We'll talk about beer, not Ionic.",
+				    "date":incrementDate(new Date(), 1)
+				    }   
+			    );
+	    fakeEvents.push(
+			    {
+				"title":"Meetup on Beer",
+				    "description":"We'll talk about Ionic, not Beer.",
+				    "date":incrementDate(new Date(), 2)
+				    }   
+			    );
+	    fakeEvents.push(
+			    {
+				"title":"Ray's Birthday Bash",
+				    "description":"Celebrate the awesomeness of Ray",
+				    "date":incrementDate(new Date(), 4)
+				    }   
+			    );
+	    fakeEvents.push(
+			    {
+				"title":"Code Review",
+				    "description":"Let's tear apart Ray's code.",
+				    "date":incrementDate(new Date(), 5)
+				    }   
+			    );
+	    var getEvents = function() {
+		var deferred = $q.defer();
+		/*
         Logic is:
         For each, see if it exists an event.
-        */
-        var promises = [];
-          fakeEvents.forEach(function(ev) {
-              //add enddate as 1 hour plus
-              ev.enddate = incrementHour(ev.date, 1);
-              console.log('try to find '+JSON.stringify(ev));
-              promises.push($cordovaCalendar.findEvent({
-                  title:ev.title,
-                  startDate:ev.date
-              }));
-          });
-          $q.all(promises).then(function(results) {
-              console.log("in the all done");   
-              //should be the same len as events
-              for(var i=0;i<results.length;i++) {
-                  fakeEvents[i].status = results[i].length === 1;
-              }
-              deferred.resolve(fakeEvents);
-          });
-          return deferred.promise;
-      }
-      return {
-            get:getEvents
-      };
-    })
+		*/
+		var promises = [];
+		fakeEvents.forEach(function(ev) {
+			//add enddate as 1 hour plus
+			ev.enddate = incrementHour(ev.date, 1);
+			console.log('try to find '+JSON.stringify(ev));
+			promises.push($cordovaCalendar.findEvent({
+				    title:ev.title,
+					startDate:ev.date
+					}));
+		    });
+		$q.all(promises).then(function(results) {
+			console.log("in the all done");   
+			//should be the same len as events
+			for(var i=0;i<results.length;i++) {
+			    fakeEvents[i].status = results[i].length === 1;
+			}
+			deferred.resolve(fakeEvents);
+		    });
+		return deferred.promise;
+	    }
+	    return {
+		get:getEvents
+		    };
+	})
+
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
 
@@ -106,7 +108,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/tops.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -117,7 +120,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/pants.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.shoes', {
@@ -126,7 +130,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/shoes.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.formal', {
@@ -135,7 +140,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/formal.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -145,7 +151,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/newItem.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
 
@@ -153,10 +160,13 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             url: '/newItemWishlist',
             views: {
               'menuContent': {
-                templateUrl: 'templates/closet/newItemWishlist.html'
-              }
-            }
+            templateUrl: 'templates/closet/newItemWishlist.html'
+             }
+            },
+            controller:'CameraCtrl'
           })
+
+
 
             .state('app.jackets', {
                 url: '/jackets',
@@ -164,7 +174,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/jackets.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.accessories', {
@@ -173,7 +184,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/closet/accessories.html'
                     }
-                }
+                },
+              controller: 'ClosetCtrl'
             })
 
             .state('app.search', {
@@ -203,7 +215,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/menu/outfits.html'
                     }
-                }
+                },
+              controller: 'OutfitsCtrl'
             })
 
             .state('app.calendar', {
@@ -222,7 +235,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     'menuContent': {
                         templateUrl: 'templates/menu/wishlist.html'
                     }
-                }
+                },
+                controller:'WishlishCtrl'
             })
 
             .state('app.options', {
@@ -245,7 +259,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 controller: 'registerCtrl'
               })
 
-            //  .state('app.logout', {
+            //  .state('app.logout', { test
             //     url: '/logout',
             //     views: {
             //         'menuContent': {
@@ -276,3 +290,4 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/login');
     });
+

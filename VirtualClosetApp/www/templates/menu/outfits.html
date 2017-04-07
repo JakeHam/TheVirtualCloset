@@ -1,9 +1,31 @@
-<ion-view view-title="Outfits">
+<ion-view view-title="Outfits", ng-controller="OutfitsCtrl">
+  <ion-nav-buttons side = "secondary">
+    <button ng-click="showPopup()"  class="button button-clear icon ion-plus-round"></button>
+  </ion-nav-buttons>
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
     <h3 align="center">Outfits Blank Page</h3>
+
+    <label class = "item item-input item-select item-dark">
+      <div class = "input-label">
+        Select
+      </div>
+
+      <select>
+        <option>Option 1</option>
+        <option selected>Option 2</option>
+        <option>Option 3</option>
+      </select>
+    </label>
+
+    <div class="list list-inset">
+      <div class="item">Item 1</div>
+      <div class="item">Item 2</div>
+      <div class="item">Item 3</div>
+    </div>
+
   </ion-content>
 </ion-view>
