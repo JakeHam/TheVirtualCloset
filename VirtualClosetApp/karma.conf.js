@@ -14,20 +14,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './node_modules/jquery/dist/jquery.min.js',
         './www/lib/ionic/js/ionic.bundle.js',
-        './www/templates/**/*.html',
-        './www/js/app.js',
-        './www/js/controllers.js',
-        './tests/unit-tests/*.js'
+        './www/js/**/*.js',
+        './node_modules/angular-mocks/angular-mocks.js',
+        './tests/unit-tests/**/*.js'
     ],
 
 
     plugins: [
-        "karma-chrome-launcher",
-        "karma-jasmine",
-        "karma-mocha-reporter",
-        "karma-ng-html2js-preprocessor"
+      'karma-jasmine',
+      'karma-mocha-reporter',
+      'karma-chrome-launcher',
+      'karma-coverage'
     ],
 
     // list of files to exclude
@@ -38,20 +36,25 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './www/templates/**/*.html': ['ng-html2js']
+      './www/js/**/!(*min).js': 'coverage',
     },
-
-    ngHtml2JsPreprocessor: {
-      moduleName: 'templates',
-      stripPrefix: './www/'
-    },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
 
+    // mocha reporter options
+    mochaReporter: {
+      // comment/uncomment to view/hide stack traces
+      // maxLogLines: -1
+    },
+
+    // coverage reporter options
+    coverageReporter: {
+      type : 'text',
+      dir : 'tests/coverage/'
+    },
 
     // web server port
     port: 9876,

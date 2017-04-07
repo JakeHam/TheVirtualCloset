@@ -1,4 +1,4 @@
-describe('LoginController', function () {
+describe('RegisterController', function () {
 
   var $scope, $ionicLoading, ctrl, $timeout, deferredLogin, stateMock;
 
@@ -9,7 +9,7 @@ describe('LoginController', function () {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
 
-      ctrl = $controller('loginCtrl', {
+      ctrl = $controller('registerCtrl', {
         $scope: $scope,
         $ionicLoading: $ionicLoading,
         $state: stateMock
@@ -27,22 +27,22 @@ describe('LoginController', function () {
     expect($scope).toBeDefined();
   });
 
-  describe('.loginToAccount', function () {
+  describe('.register', function () {
 
     beforeEach(function () {
-      $scope.email = 'test@test.test';
+      var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+      var randEmail = '';
+      for (var i=0; i<10; i++) {
+        randEmail += chars[Math.floor(Math.random() * chars.length)];
+      }
+      randEmail += '@test.com';
+      $scope.email = randEmail;
       $scope.password = 'testpass';
     });
 
-    it('should take us to mycloset on a good login', function () {
-      expect($scope.loginUser($scope.email, $scope.password)).toHaveBeenCalledWith('test@test.test', 'testpass');
-      expect(stateMock.go).toHaveBeenCalledWith('app.mycloset');
+    it('should create a new user', function () {
+      expect($scope.loginUser($scope.email, $scope.password)).toHaveBeenCalledWith(randEmail, 'testpass');
     });
-
-    it('should take us back to login on a bad login', function () {
-      $scope.loginUser('bad', 'bad');
-      expect(stateMock.go).toHaveBeenCalledWith('app.login');
-    })
 
   });
 });
