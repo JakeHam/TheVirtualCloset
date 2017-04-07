@@ -47,8 +47,8 @@ For the development of The Virtual Closet, we will be following the "Feature Bra
 
 ## F.A.Q.
 ### 1) I accidentally made changes to master! How do I fix without removing all my changes?!
-* ~~Create a new branch (See: step 2).
-* Copy and paste the changes made in master to this new branch.~~
+* ~~Create a new branch (See: step 2).~~
+* ~~Copy and paste the changes made in master to this new branch.~~
 * Create a new branch with *git checkout -b ${NewBranchName}*
 * Checkout master again. Run *git reset --hard* in the terminal. This will reset the master branch to it's last commit.
 * All done!
