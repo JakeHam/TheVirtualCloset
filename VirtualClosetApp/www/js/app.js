@@ -203,7 +203,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                         templateUrl: 'templates/menu/mycloset.html'
                       }
                  },
-                controller: 'myClosetCtrl'
+                controller: 'myClosetCtrl',
+              params: {fromRegistrationPage: false}
             })
 
 
