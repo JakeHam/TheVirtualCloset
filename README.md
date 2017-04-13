@@ -13,7 +13,10 @@ Development of The Virtual Closet
 2) cd VirtualClosetApp
 3) npm install
 4) Unit Tests: karma start
-5) End-to-end tests: protractor protractor.conf.js
+5) End-to-end tests:
+  a) ionic serve
+  b) webdriver-manager start
+  c) protractor protractor.conf.js
 
 ## Development Cycle
 For the development of The Virtual Closet, we will be following the "Feature Branch Workflow" for Git integration. Feel free to read more about it [here](https://www.atlassian.com/git/tutorials/comparing-workflows#feature-branch-workflow). Since we're all using IntelliJ for development, I've created a helpful guide (with pictures!) in case you get lost.
