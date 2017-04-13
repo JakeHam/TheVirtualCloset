@@ -37,28 +37,28 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 				"title":"Meetup on Ionic",
 				    "description":"We'll talk about beer, not Ionic.",
 				    "date":incrementDate(new Date(), 1)
-				    }   
+				    }
 			    );
 	    fakeEvents.push(
 			    {
 				"title":"Meetup on Beer",
 				    "description":"We'll talk about Ionic, not Beer.",
 				    "date":incrementDate(new Date(), 2)
-				    }   
+				    }
 			    );
 	    fakeEvents.push(
 			    {
 				"title":"Ray's Birthday Bash",
 				    "description":"Celebrate the awesomeness of Ray",
 				    "date":incrementDate(new Date(), 4)
-				    }   
+				    }
 			    );
 	    fakeEvents.push(
 			    {
 				"title":"Code Review",
 				    "description":"Let's tear apart Ray's code.",
 				    "date":incrementDate(new Date(), 5)
-				    }   
+				    }
 			    );
 	    var getEvents = function() {
 		var deferred = $q.defer();
@@ -77,7 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 					}));
 		    });
 		$q.all(promises).then(function(results) {
-			console.log("in the all done");   
+			console.log("in the all done");
 			//should be the same len as events
 			for(var i=0;i<results.length;i++) {
 			    fakeEvents[i].status = results[i].length === 1;
@@ -101,17 +101,15 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                 controller: 'AppCtrl'
             })
 
-
-            .state('app.tops', {
-                url: '/tops',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/closet/tops.html'
-                    }
-                },
-              controller: 'ClosetCtrl'
-            })
-
+      .state('app.tops', {
+        url: '/tops',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/closet/tops.html'
+          }
+        },
+        controller: 'topsCtrl'
+      })
 
 
             .state('app.pants', {
@@ -205,7 +203,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                         templateUrl: 'templates/menu/mycloset.html'
                       }
                  },
-                controller: 'myClosetCtrl'
+                controller: 'myClosetCtrl',
+              params: {fromRegistrationPage: false}
             })
 
 

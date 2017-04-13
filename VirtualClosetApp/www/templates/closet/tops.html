@@ -1,4 +1,4 @@
-<ion-view view-title="Tops" ng-controller="ClosetCtrl">
+<ion-view view-title="Tops" ng-controller="topsCtrl">
   <ion-content>
 
     <style>h3 {
@@ -6,7 +6,9 @@
     }
     </style>
     <h3 align="center">Tops Blank Page</h3>
-    <li class="button button-full" ng-repeat="top in finalTopsArr", ng-click= "checkFlag()">
-      Brand: {{top.brand}}<br>Color: {{top.color}} <br>Name: {{top.name}} <br>Image: {{top.img}}</li>
+
+    <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag()">
+      Brand: {{top._brand}}<br>Color: {{top._color}} <br>Name: {{top._name}} <br>Image: {{top._img}}
+    </li>
   </ion-content>
 </ion-view>
