@@ -1,6 +1,20 @@
 # TheVirtualCloset
 Development of The Virtual Closet
 
+## How to build and run application
+1) git clone https://github.com/JakeHam/TheVirtualCloset.git
+2) cd VirtualClosetApp
+3) npm install -g ionic
+4) npm install -g cordova
+5) ionic serve (Application will open in new window)
+
+## How to build and run tests
+1) git clone https://github.com/JakeHam/TheVirtualCloset.git (assuming you have not done so already)
+2) cd VirtualClosetApp
+3) npm install
+4) Unit Tests: karma start
+5) End-to-end tests: protractor protractor.conf.js
+
 ## Development Cycle
 For the development of The Virtual Closet, we will be following the "Feature Branch Workflow" for Git integration. Feel free to read more about it [here](https://www.atlassian.com/git/tutorials/comparing-workflows#feature-branch-workflow). Since we're all using IntelliJ for development, I've created a helpful guide (with pictures!) in case you get lost.
 
@@ -47,8 +61,9 @@ For the development of The Virtual Closet, we will be following the "Feature Bra
 
 ## F.A.Q.
 ### 1) I accidentally made changes to master! How do I fix without removing all my changes?!
-* Create a new branch (See: step 2).
-* Copy and paste the changes made in master to this new branch.
+* ~~Create a new branch (See: step 2).~~
+* ~~Copy and paste the changes made in master to this new branch.~~
+* Create a new branch with *git checkout -b ${NewBranchName}*
 * Checkout master again. Run *git reset --hard* in the terminal. This will reset the master branch to it's last commit.
 * All done!
 

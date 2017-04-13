@@ -2,11 +2,14 @@
   <ion-nav-buttons side = "secondary">
     <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
   </ion-nav-buttons>
+<ion-view view-title="Accessories", ng-controller="ClosetCtrl">
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
     <h3 align="center">Accessories Blank Page</h3>
+    <li class="button button-full" ng-repeat="accessory in finalAccessoriesArr">
+      Brand: {{accessory._brand}}<br>Color: {{accessory.color}} <br>Name: {{accessory.name}} <br>Image: {{accessory.img}}</li>
   </ion-content>
 </ion-view>

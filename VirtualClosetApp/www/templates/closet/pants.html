@@ -1,4 +1,4 @@
-<ion-view view-title="Pants">
+<ion-view view-title="Pants", ng-controller="ClosetCtrl">
   <ion-nav-buttons side = "secondary">
     <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
   </ion-nav-buttons>
@@ -8,5 +8,10 @@
     }
     </style>
     <h3 align="center">Pants Blank Page</h3>
+
+
+
+    <li class="button button-full" ng-repeat="pant in finalPantsArr">
+      Brand: {{pant._brand}}<br>Color: {{pant._color}} <br>Name: {{pant._name}} <br>Image: {{pant._img}}</li>
   </ion-content>
 </ion-view>

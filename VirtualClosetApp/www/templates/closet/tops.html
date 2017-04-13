@@ -8,5 +8,9 @@
     }
     </style>
     <h3 align="center">Tops Blank Page</h3>
+
+    <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag()">
+      Brand: {{top._brand}}<br>Color: {{top._color}} <br>Name: {{top._name}} <br>Image: {{top._img}}
+    </li>
   </ion-content>
 </ion-view>

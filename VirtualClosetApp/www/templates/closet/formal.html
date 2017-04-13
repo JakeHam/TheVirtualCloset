@@ -1,12 +1,11 @@
-<ion-view view-title="Formal">
-  <ion-nav-buttons side = "secondary">
-    <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
-  </ion-nav-buttons>
+<ion-view view-title="Formal", ng-controller="ClosetCtrl">
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
     <h3 align="center">Formal Blank Page</h3>
+    <li class="button button-full" ng-repeat="formal in finalFormalsArr">
+      Brand: {{formal.brand}}<br>Color: {{formal.color}} <br>Name: {{formal.name}} <br>Image: {{formal.img}}</li>
   </ion-content>
 </ion-view>
