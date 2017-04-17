@@ -13,37 +13,37 @@
 
     <!--<img ng-src="{{srcImage || 'img/dummy.jpg'}}" id="srcImage" width="250 " height="250" style="display: block; margin: 0 auto;"/><br/>
 -->
-    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id = "itemImg">
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id = "itemImg" ng-model="item._img">
     <img ng-show="imgURI === undefined" ng-src="http://placehold.it/250x250">
     <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button><br/>
 
     </body>
 
     <div class="card">
-      <label class ="item item-input" id="itemName" >
+      <label class ="item item-input" >
         <span class = "input-label">Item name</span>
-        <input type="text" placeholder="whatever you like">
+        <input type="text" placeholder="whatever you like" id="itemName" ng-model="item._name">
       </label>
 
 
-      <label class ="item item-input" id = "itemBrand">
+      <label class ="item item-input" >
         <span class = "input-label">Brand</span>
-        <input type="text" placeholder="e.g. Nike">
+        <input type="text" placeholder="e.g. Nike" id = "itemBrand" ng-model="item._brand">
       </label>
 
 
-      <label class ="item item-input" id = "itemColor">
+      <!--<label class ="item item-input" id = "itemColor" ng-model="$parent.itemColor">-->
+      <label class ="item item-input" >
         <span class = "input-label">Color</span>
-        <input type="text" placeholder="e.g. Red">
+        <input type="text" placeholder="e.g. Red" id = "itemColor" ng-model="item._color">
       </label>
 
-      <a href="#/app/wishlist" class ="button button-positive">
-       Save
-      </a>
+      <button class="button button-positive" ng-click="backtowishlist(item)">
+        save
+      </button>
 
 
     </div>
-
 
 
   </ion-content>
