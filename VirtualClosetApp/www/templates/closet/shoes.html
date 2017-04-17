@@ -1,14 +1,14 @@
 <ion-view view-title="Shoes" ng-controller="ClosetCtrl">
   <ion-nav-buttons side = "secondary">
-    <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
+    <a ng-href = {{ref}} ng-class = doneOrPlus()></a>
   </ion-nav-buttons>
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
-    <h3 align="center">Shoes Blank Page</h3>
-    <li class="button button-full" ng-repeat="shoe in finalShoesArr">
+    <h3 align="center">Shoes Test Page</h3>
+    <li class="button button-full" ng-repeat="shoe in finalShoesArr" ng-click="checkFlag()">
       Brand: {{shoe.brand}}<br>Color: {{shoe.color}} <br>Name: {{shoe.name}} <br>Image: {{shoe.img}}</li>
   </ion-content>
 </ion-view>

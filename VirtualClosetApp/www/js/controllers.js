@@ -220,6 +220,23 @@ angular.module('starter.controllers', [])
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {
 
+    $scope.doneOrPlus2 = function () {
+      if ($rootScope.flag == null) {
+        $rootScope.flag = false;
+      }
+
+
+      if ($rootScope.flag == true) {
+        $scope.ref = "#/app/outfits";
+        return "icon ion-checkmark-round";
+      }
+      else {
+        $scope.ref = "#/app/newItem";
+        return "icon ion-plus-round";
+      }
+
+    }
+
     $scope.init = function () {
       var user = firebase.auth().currentUser;
       if (!user) {
@@ -320,6 +337,8 @@ angular.module('starter.controllers', [])
         _color = color;
       }
 
+
+
       // Here the init function is called
       init();
 
@@ -381,6 +400,10 @@ angular.module('starter.controllers', [])
     }
 
 
+
+
+
+
   })
 
   //wishlist controller
@@ -437,133 +460,16 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('topsCtrl', function ($scope, $rootScope, $ionicLoading) {
-    var user = firebase.auth().currentUser;
-    var getUserEmail = user.email;
-    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
-      $scope.finalTopsArr = snapshot.val().Tops;
-    });
-  })
-
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
-    $scope.finalTopsArr = {};
-    var user = firebase.auth().currentUser;
-    var getUserEmail = user.email;
-    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-
-    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
-
-      var tops = snapshot.val().Tops;
-      $scope.finalTopsArr = {};
-      for (var i = 0; i < tops.size; i++) {
-        var top = tops[i];
-        top.brand = tops[i]._brand;
-        top.color = tops[i]._color;
-        top.img = tops[i]._img;
-        top.name = tops[i].name;
-
-        $scope.finalTopsArr.push(top);
-      }
-
-
-      var pants = snapshot.val().Pants;
-      $scope.finalPantsArr = {};
-      for (var i = 0; i < pants.size; i++) {
-        var pant = pants[i];
-        pant.brand = pants[i]._brand;
-        pant.color = pants[i]._color;
-        pant.img = pants[i]._img;
-        pant.name = pants[i].name;
-
-        finalPantsArr.push(pant);
-      }
-
-      var shoes = snapshot.val().Shoes;
-      $scope.finalShoesArr = {};
-      for (var i = 0; i < shoes.size; i++) {
-        var shoe = shoes[i];
-        shoe.brand = shoes[i]._brand;
-        shoe.color = shoes[i]._color;
-        shoe.img = shoes[i]._img;
-        shoe.name = shoes[i].name;
-
-        finalShoesArr.push(shoe);
-      }
-
-      var formals = snapshot.val().Formal;
-      $scope.finalFormalsArr = {};
-      for (var i = 0; i < formals.size; i++) {
-        var formal = formals[i];
-        formal.brand = formals[i]._brand;
-        formal.color = formals[i]._color;
-        formal.img = formals[i]._img;
-        formal.name = formals[i].name;
-
-        finalFormalsArr.push(formal);
-      }
-
-      var jackets = snapshot.val().Jackets;
-      $scope.finalJacketsArr = {};
-      for (var i = 0; i < jackets.size; i++) {
-        var jacket = jackets[i];
-        jacket.brand = jackets[i]._brand;
-        jacket.color = jackets[i]._color;
-        jacket.img = jackets[i]._img;
-        jackets.name = jackets[i].name;
-
-        finalJacketsArr.push(jacket);
-      }
-
-      var accessories = snapshot.val().Accessories;
-      $scope.finalAccessoriesArr = {};
-      for (var i = 0; i < accessories.size; i++) {
-        var accessory = accessories[i];
-        accessory.brand = accessories[i]._brand;
-        accessory.color = accessories[i]._color;
-        accessory.img = accessories[i]._img;
-        accessory.name = accessories[i].name;
-
-        finalAccessoriesArr.push(accessory);
-      }
-
-      $scope.first = true;
-      $scope.second = false;
-      $scope.outfitList = {};
-
-      $scope.checkFlag = function () {
-        if ($rootScope.flag == true) {
-          if ($scope.first) {
-            $scope.buttonType = "ion-button full outline";
-            $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
-            $scope.second = true;
-            $scope.first = false;
-            scope.outfitList.push($scope.top);
-          }
-          else if ($scope.second) {
-            $scope.buttonType = "button button-full";
-            $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
-            $scope.second = false;
-            $scope.first = true;
-            scope.outfitList.remove($scope.top);
-          }
-        }
-        else {
-          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
-        }
-      }
-
-    });
-
-
-  })
-
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope) {
+   if($rootScope.listOfLists == null){
+     $rootScope.listOfLists = [];
+   }
     $scope.showPopup = function () {
-      $scope.data = {}
+      $scope.data = {};
       var outfitPopup = $ionicPopup.show({
-        template: '<input type = "text" ng-modal = "data.outfit" placeholder="Outfit Name">',
+        template: '<input type = "text" ng-model = "data.outfit" placeholder="Outfit Name">',
+
         title: 'New Outfit',
         scope: $scope,
         cssClass: 'closetbutton',
@@ -575,6 +481,7 @@ angular.module('starter.controllers', [])
             onTap: function (e) {
               $rootScope.flag = true;
               location.href = "#/app/mycloset";
+              return $scope.data.outfit;
             }
           },
 
@@ -582,15 +489,113 @@ angular.module('starter.controllers', [])
 
       });
       outfitPopup.then(function (res) {
+        $rootScope.currName = res;
+        var fullOutfit = {};
+        fullOutfit.name = res;
+        fullOutfit.outfitList = [];
+        $rootScope.listOfLists.push(fullOutfit);
         console.log('Tapped!', res);
       });
     };
 
-    $scope.selectItem = function () {
 
+
+    $scope.selectItem = function (name) {
+      if(!$rootScope.listOfLists.$isEmpty()){
+        for(var i=0; i<$rootScope.listOfLists.size; i++){
+          if(name.equals($rootScope.listOfLists[i].name)){
+            $scope.subList = $rootScope.listOfLists[i].outfitList;
+          }
+        }
+      }
     }
 
   })
+
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
+
+
+
+
+if($rootScope.flag == null) {
+      $rootScope.flag = false;
+    }
+    if ($rootScope.flag == true) {
+      $scope.ref = "#/app/outfits";
+    }
+    else {
+      $scope.ref = "#/app/newItem";
+    }
+
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+      $scope.finalTopsArr = snapshot.val().Tops;
+      $scope.finalPantsArr = snapshot.val().Pants;
+      $scope.finalShoesArr = snapshot.val().Shoes;
+      $scope.finalFormalsArr = snapshot.val().Formal;
+      $scope.finalJacketsArr = snapshot.val().Jackets;
+      $scope. finalAccessoriesArr = snapshot.val().Accessories;
+
+
+
+
+      $scope.first = true;
+      $scope.second = false;
+
+
+      $scope.doneOrPlus = function () {
+        if ($rootScope.flag == true) {
+          $scope.ref = "#/app/outfits";
+          return "icon ion-checkmark-round";
+        }
+        else {
+          $scope.ref = "#/app/newItem";
+          return "icon ion-plus-round";
+        }
+
+      }
+
+
+
+
+      $scope.checkFlag = function () {
+        if ($rootScope.flag == true) {
+          if ($scope.first) {
+            $scope.buttonType = "ion-button full outline";
+            $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
+            $scope.second = true;
+            $scope.first = false;
+
+            for(var i = 0; i<$rootScope.listOfLists.length; i++){
+              if($rootScope.listOfLists[i].name == $rootScope.currName){
+                $rootScope.listOfLists[i].outfitList. push($scope.top);
+              }
+            }
+          }
+          else if ($scope.second) {
+            $scope.buttonType = "button button-full";
+            $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
+            $scope.second = false;
+            $scope.first = true;
+            for(var i = 0; i<$rootScope.listOfLists.length; i++){
+              if($rootScope.listOfLists[i].name == $rootScope.currName){
+                $rootScope.listOfLists[i].outfitList.splice(i,1);
+              }
+            }
+          }
+        }
+        else {
+          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
+        }
+      }
+
+    });
+  })
+
+
+
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
 
