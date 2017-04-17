@@ -150,7 +150,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                         templateUrl: 'templates/closet/newItem.html'
                     }
                 },
-              controller: 'ClosetCtrl'
+              controller: 'newitemCtrl'
             })
 
 

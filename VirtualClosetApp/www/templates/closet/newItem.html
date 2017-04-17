@@ -1,4 +1,4 @@
-<ion-view view-title="newItem">
+<ion-view view-title="newItem" ng-controller="newitemCtrl">
   <ion-content>
     <style>h3 {
       height: 110px;
@@ -6,26 +6,40 @@
     </style>
     <h3 align="center">Add new item</h3>
 
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id = "itemImg" ng-model="itemImg">
+    <img ng-show="imgURI === undefined" ng-src="http://placehold.it/250x250">
+    <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button><br/>
+
+
     <div class="card">
+
+      <select ng-model="item._category">
+        <option>Tops</option>
+        <option>Pants</option>
+        <option>Shoes</option>
+        <option>Formal</option>
+        <option>Jackets</option>
+        <option>Accessories</option>
+      </select>
+
+      <label class ="item item-input" >
+        <span class = "input-label">Item name</span>
+        <input type="text" placeholder="whatever you like" id="itemName" ng-model="item._Name">
+      </label>
+
       <label class ="item item-input">
         <span class = "input-label">Brand</span>
-        <input type="text" placeholder="e.g. Nike">
+        <input type="text" placeholder="e.g. Nike" id = "itemBrand" ng-model="item._brand">
       </label>
-
-      <label class ="item item-input">
-        <span class = "input-label">Size</span>
-        <input type="text" placeholder="e.g. XL">
-      </label>
-
 
       <label class ="item item-input">
         <span class = "input-label">Color</span>
-        <input type="text" placeholder="e.g. Red">
+        <input type="text" placeholder="e.g. Red" id = "itemColor" ng-model="item._color">
       </label>
 
     </div>
 
-    <button class="button button-positive" >
+    <button class="button button-positive" ng-click="backtomainpage(item)">
       save
     </button>
 

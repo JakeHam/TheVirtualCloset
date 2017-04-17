@@ -268,6 +268,11 @@ angular.module('starter.controllers', [])
 
           createClosetItem('Jacket1', 'img11', 'brand11', 'color11', 'Jackets');
           createClosetItem('Jacket2', 'img12', 'brand12', 'color12', 'Jackets');
+
+          createClosetItem('wishitem1', 'img13', 'brand13', 'color13', 'Wishlist');
+          createClosetItem('wishitem2', 'img14', 'brand14', 'color14', 'Wishlist');
+          createClosetItem('wishitem3', 'img15', 'brand15', 'color15' , 'Wishlist');
+
         }
       }
     }
@@ -276,12 +281,15 @@ angular.module('starter.controllers', [])
     // This function creates the item object with the predefined structure.
     function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory) {
       // Get accountID {email} for cur user.
+
       var user = firebase.auth().currentUser;
       var getUserEmail = user.email;
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
+
       var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
       //getAllItems();
+
       //console.log($rootScope.completeContent);
       addItemToCloset(itemObj, itemCategory);
     }
@@ -357,22 +365,10 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('PlaylistsCtrl', function ($scope) {
-    $scope.playlists = [
-      {title: 'Reggae', id: 1},
-      {title: 'Chill', id: 2},
-      {title: 'Dubstep', id: 3},
-      {title: 'Indie', id: 4},
-      {title: 'Rap', id: 5},
-      {title: 'Cowbell', id: 6}
-    ];
-  })
+  .controller('newitemCtrl', function ($scope, $cordovaCamera, $ionicLoading, $state, $rootScope, $ionicHistory) {
 
-  //camera controller
-  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, $rootScope, Item, $ionicHistory) {
-    //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
-      //console.log('its workfsd111111111111fsfsdfing')
+
       var options = {
         quality: 80,
         destinationType: Camera.DestinationType.DATA_URL,
@@ -392,13 +388,57 @@ angular.module('starter.controllers', [])
       });
     }
 
-    $scope.addwishlistitem = function () {
-
-
-      createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+    $scope.backtomainpage = function (item) {
+      createClosetItem(item._name, 'img15', item._brand, item._color, item._category);
+      $state.go("app.wishlist");
 
     }
+  })
+  //camera controller
+  //$scope, $cordovaCamera, $ionicLoading, $state, $rootScope, Item, $ionicHistory
+  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, $rootScope, $ionicHistory) {
+    //console.log('its workfsdfsfsdfing')
+    $scope.takePicture = function () {
 
+      var options = {
+        quality: 80,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 250,
+        targetHeight: 250,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+      };
+
+      $cordovaCamera.getPicture(options).then(function (imageData) {
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      }, function (err) {
+        // An error occured. Show a message to the user
+      });
+    }
+
+    $scope.backtowishlist = function (item) {
+
+      //createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+
+
+      //window.alert('Wishlist');
+
+      createClosetItem('wishitem666', 'img15', 'brand15', 'color15', 'Wishlist');
+
+      //var itemObj = new Item('wishitem44666', 'img145', 'brand145', 'color154');
+      //addItemToCloset(itemObj, 'Wishlist');
+
+
+      //$ionicHistory.nextViewOptions({
+      //  disableBack: true
+      //});
+      $state.go("app.wishlist");
+      //createClosetItem(item._name, 'img15', item._brand, item._color, 'Wishlist');
+
+    }
 
 
 
@@ -409,18 +449,15 @@ angular.module('starter.controllers', [])
   //wishlist controller
   .controller('WishlishCtrl', function ($scope, $rootScope) {
 
+
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
     $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-
     return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
-      var wishlist = snapshot.val().wishlist;
-
-
+      $scope.wishlistArr = snapshot.val().Wishlist;
     });
+
   })
-
-
 
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
@@ -459,7 +496,6 @@ angular.module('starter.controllers', [])
 
     }
   })
-
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope) {
    if($rootScope.listOfLists == null){
