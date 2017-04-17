@@ -128,7 +128,7 @@ angular.module('starter.controllers', [])
       myCloset.Jackets = "";
       myCloset.Accessories = "";
 
-      myCloset.Connections = "";
+      myCloset.Connections = [];
       myCloset.Wishlist = "";
       myCloset.Calendar = "";
       myCloset.Outfits = "";
@@ -593,7 +593,29 @@ if($rootScope.flag == null) {
 
     });
   })
+  .controller('ConnectionsCtrl',function ($scope, $rootScope) {
 
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+      //var currentConnections = null;
+      firebase.database().ref($rootScope.email).once('value').then(function (current) {
+          $scope.currentConnections = current.Connections;
+      })
+      //noinspection JSAnnotator
+      function addingConnections(connectionEmail) {
+          if (currentConnections.indexOf(connectionEmail) == -1) {
+              currentConnections.push(connectionEmail);
+          }
+          return currentConnections;
+      }
+      function removeConnection(connectionEmail) {
+          if (currentConnections.indexOf(connectionEmail) > -1) {
+              currentConnections.splice(index, 1);
+          }
+          return currentConnections;
+      }
+  })
 
 
 
