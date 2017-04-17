@@ -1,13 +1,13 @@
-<ion-view view-title="Tops" ng-controller="topsCtrl">
+<ion-view view-title="Tops" ng-controller="ClosetCtrl">
   <ion-nav-buttons side = "secondary">
-    <a href="#/app/newItem" class = "button button-clear icon ion-plus-round"></a>
+    <a ng-href = {{ref}} ng-class = doneOrPlus()></a>
   </ion-nav-buttons>
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
-    <h3 align="center">Tops Blank Page</h3>
+    <h3 align="center">Tops Test Page</h3>
 
     <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag()">
       Brand: {{top._brand}}<br>Color: {{top._color}} <br>Name: {{top._name}} <br>Image: {{top._img}}

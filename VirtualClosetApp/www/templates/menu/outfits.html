@@ -15,16 +15,12 @@
       </div>
 
       <select>
-        <option>Option 1</option>
-        <option selected>Option 2</option>
-        <option>Option 3</option>
+        <option ng-repeat="item in listOfLists" ng-click = "selectItem(item.name)">{{item.name}}             </option>
       </select>
     </label>
 
     <div class="list list-inset">
-      <div class="item">Item 1</div>
-      <div class="item">Item 2</div>
-      <div class="item">Item 3</div>
+      <div class="item" ng-repeat="subitem in subList"></div>
     </div>
 
   </ion-content>
