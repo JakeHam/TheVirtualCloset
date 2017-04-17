@@ -264,7 +264,7 @@ angular.module('starter.controllers', [])
     // This function creates the item object with the predefined structure.
     function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory) {
       // Get accountID {email} for cur user.
-      window.alert('Wishlist');
+
       var user = firebase.auth().currentUser;
       var getUserEmail = user.email;
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
