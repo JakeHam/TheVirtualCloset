@@ -11,7 +11,7 @@ Development of The Virtual Closet
 ## How to build and run tests
 1) git clone https://github.com/JakeHam/TheVirtualCloset.git (assuming you have not done so already)
 2) cd VirtualClosetApp
-3) ~~npm install~~ (npm install does not seem to install packages properly. When you try to run the tests, npm will let you know which packages need installed via 'npm install -g <package>')
+3) ~~npm install~~ (npm install does not seem to install packages properly. When you try to run the tests, npm will let you know which packages need installed via 'npm install -g [package]')
 4) Unit Tests: karma start
 5) End-to-end tests:
     * ionic serve
