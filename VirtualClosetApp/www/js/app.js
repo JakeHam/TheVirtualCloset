@@ -235,7 +235,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                         templateUrl: 'templates/menu/wishlist.html'
                     }
                 },
-                controller:'WishlishCtrl'
+                controller:'WishlishCtrl',
+                cache: false
             })
 
             .state('app.options', {

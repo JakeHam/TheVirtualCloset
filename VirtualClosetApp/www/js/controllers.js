@@ -394,9 +394,12 @@ angular.module('starter.controllers', [])
 
     }
   })
+
+
   //camera controller
   //$scope, $cordovaCamera, $ionicLoading, $state, $rootScope, Item, $ionicHistory
-  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, $rootScope, $ionicHistory) {
+//$scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams
+  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams) {
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
@@ -421,26 +424,57 @@ angular.module('starter.controllers', [])
 
     $scope.backtowishlist = function (item) {
 
-      //createClosetItem('item1', 'img1', 'brand1', 'color1', 'Wishlist');
+
+      createClosetItem(item._name, 'img1', item._brand, item._color, 'Wishlist');
 
 
-      //window.alert('Wishlist');
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
 
-      createClosetItem('wishitem666', 'img15', 'brand15', 'color15', 'Wishlist');
-
-      //var itemObj = new Item('wishitem44666', 'img145', 'brand145', 'color154');
-      //addItemToCloset(itemObj, 'Wishlist');
-
-
-      //$ionicHistory.nextViewOptions({
-      //  disableBack: true
-      //});
       $state.go("app.wishlist");
-      //createClosetItem(item._name, 'img15', item._brand, item._color, 'Wishlist');
 
     }
 
+    // This function creates the item object with the predefined structure.
+    function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory) {
+      // Get accountID {email} for cur user.
 
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+
+      var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
+
+      addItemToCloset(itemObj, itemCategory);
+    }
+
+    // This function calls the firebase-database to add the existing "myCloset" object.
+    function addItemToCloset(itemObj, itemCategory) {
+      var newItemId = ID();
+      var updates = {};
+      updates[$rootScope.email + '/' + itemCategory + '/' + newItemId] = itemObj;
+      return firebase.database().ref().update(updates);
+    }
+
+    function uniqueNumber() {
+      var date = Date.now();
+
+      if (date <= uniqueNumber.previous) {
+        date = ++uniqueNumber.previous;
+      } else {
+        uniqueNumber.previous = date;
+      }
+
+      return date;
+    }
+
+    uniqueNumber.previous = 0;
+
+    function ID() {
+      return uniqueNumber();
+    };
 
 
 
@@ -448,6 +482,14 @@ angular.module('starter.controllers', [])
 
   //wishlist controller
   .controller('WishlishCtrl', function ($scope, $rootScope) {
+
+    $scope.doFefresh = function(){
+      // get data from the source
+     // $scope.wishlistArr = Wishlist.all();
+
+      $scope.$apply();
+
+    }
 
 
     var user = firebase.auth().currentUser;
@@ -458,6 +500,8 @@ angular.module('starter.controllers', [])
     });
 
   })
+
+
 
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
