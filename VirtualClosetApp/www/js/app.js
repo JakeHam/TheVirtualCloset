@@ -286,7 +286,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                     'menuContent': {
                         templateUrl: 'templates/menu/connections.html'
                     }
-                }
+                },
+                controller: 'ConnectionsCtrl'
             });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/login');
