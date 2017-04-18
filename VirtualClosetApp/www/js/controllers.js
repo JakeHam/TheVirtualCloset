@@ -365,8 +365,10 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('newitemCtrl', function ($scope, $cordovaCamera, $ionicLoading, $state, $rootScope, $ionicHistory) {
 
+//$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
+  .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams) {
+    //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
       var options = {
@@ -388,17 +390,66 @@ angular.module('starter.controllers', [])
       });
     }
 
-    $scope.backtomainpage = function (item) {
-      createClosetItem(item._name, 'img15', item._brand, item._color, item._category);
-      $state.go("app.wishlist");
+    $scope.backtocloset = function (item) {
+
+      //window.alert(item._category);
+      createClosetItem(item._name, 'img1', item._brand, item._color, item._category);
+
+
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+
+      $state.go("app.mycloset");
 
     }
+
+    // This function creates the item object with the predefined structure.
+    function createClosetItem(itemName, itemImg, itemBrand, itemColor, itemCategory) {
+      // Get accountID {email} for cur user.
+
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+
+      var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
+
+      addItemToCloset(itemObj, itemCategory);
+    }
+
+    // This function calls the firebase-database to add the existing "myCloset" object.
+    function addItemToCloset(itemObj, itemCategory) {
+      var newItemId = ID();
+      var updates = {};
+      updates[$rootScope.email + '/' + itemCategory + '/' + newItemId] = itemObj;
+      return firebase.database().ref().update(updates);
+    }
+
+    function uniqueNumber() {
+      var date = Date.now();
+
+      if (date <= uniqueNumber.previous) {
+        date = ++uniqueNumber.previous;
+      } else {
+        uniqueNumber.previous = date;
+      }
+
+      return date;
+    }
+
+    uniqueNumber.previous = 0;
+
+    function ID() {
+      return uniqueNumber();
+    };
+
+
+
   })
 
 
   //camera controller
-  //$scope, $cordovaCamera, $ionicLoading, $state, $rootScope, Item, $ionicHistory
-//$scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams
   .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams) {
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
@@ -491,7 +542,6 @@ angular.module('starter.controllers', [])
 
     }
 
-
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
     $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
@@ -500,16 +550,8 @@ angular.module('starter.controllers', [])
     });
 
   })
-
-
-
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
-  //}
-
-  //$scope.dorefresh = function(){
-  //get data from the source
-  //$scope.wishlist = Wishlist.all();
   //}
 
 
