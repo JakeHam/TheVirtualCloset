@@ -555,7 +555,7 @@ angular.module('starter.controllers', [])
   //}
 
 
-  .controller('CalendarCtrl', function ($scope, Events) {
+  .controller('CalendarCtrl', function ($scope, Events, $cordovaCamera) {
     Events.get().then(function (events) {
       console.log("events", events);
       $scope.events = events;

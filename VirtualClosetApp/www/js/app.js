@@ -61,34 +61,34 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 				    }
 			    );
 	    var getEvents = function() {
-		var deferred = $q.defer();
-		/*
-        Logic is:
-        For each, see if it exists an event.
-		*/
-		var promises = [];
-		fakeEvents.forEach(function(ev) {
-			//add enddate as 1 hour plus
-			ev.enddate = incrementHour(ev.date, 1);
-			console.log('try to find '+JSON.stringify(ev));
-			promises.push($cordovaCalendar.findEvent({
-				    title:ev.title,
-					startDate:ev.date
-					}));
-		    });
-		$q.all(promises).then(function(results) {
-			console.log("in the all done");
-			//should be the same len as events
-			for(var i=0;i<results.length;i++) {
-			    fakeEvents[i].status = results[i].length === 1;
-			}
-			deferred.resolve(fakeEvents);
-		    });
-		return deferred.promise;
+		  var deferred = $q.defer();
+    		/*
+            Logic is:
+            For each, see if it exists an event.
+    		*/
+    		var promises = [];
+    		fakeEvents.forEach(function(ev) {
+    			// //add enddate as 1 hour plus
+    			// ev.enddate = incrementDate(ev.date, 1);
+    			// console.log('try to find '+JSON.stringify(ev));
+    			// promises.push($cordovaCalendar.findEvent({
+    			// 	    title:ev.title,
+    			// 		startDate:ev.date
+    			// 		}));
+    		    });
+    		$q.all(promises).then(function(results) {
+    			console.log("in the all done");
+    			//should be the same len as events
+    			for(var i=0;i<results.length;i++) {
+    			    fakeEvents[i].status = results[i].length === 1;
+    			}
+    			deferred.resolve(fakeEvents);
+    		    });
+    		return deferred.promise;
 	    }
 	    return {
-		get:getEvents
-		    };
+		  get:getEvents
+		};
 	})
 
     .config(function($stateProvider, $urlRouterProvider) {
@@ -109,7 +109,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
           }
         },
         controller: 'topsCtrl'
-      })
+      })    
 
 
             .state('app.pants', {

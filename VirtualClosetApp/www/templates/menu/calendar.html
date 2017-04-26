@@ -1,4 +1,4 @@
-ionic<ion-view view-title="Calendar">
+<ion-view view-title="Calendar">
   <ion-content>
     <style>h3 {
       height: 110px;
@@ -30,7 +30,7 @@ ionic<ion-view view-title="Calendar">
   </head>
   <body ng-app="starter">
 
-    <ion-pane ng-controller="MainCtrl">
+    <ion-pane ng-controller="CalendarCtrl">
       <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Calendar Demo</h1>
       </ion-header-bar>
@@ -46,7 +46,7 @@ ionic<ion-view view-title="Calendar">
                         <strong>When: {{ event.date | date:'short' }}</strong>
                     </div>
                     <p ng-if="event.status">This event is added to your calendar already!</p>
-<button ng-if="!event.status" ng-click="addEvent(event,$index)" class="button button-block button-balanced">Add to Calendar</button>
+                    <button ng-if="!event.status" ng-click="addEvent(event,$index)" class="button button-block button-balanced">Add to Calendar</button>
                 </div>
                 
       </ion-content>
