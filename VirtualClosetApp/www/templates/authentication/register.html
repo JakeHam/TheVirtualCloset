@@ -6,12 +6,13 @@
     </style>
     <br><br>
     <div class="centerDiv">
-      <h1>Enter Email and Password to Create Account!</h1>
-      <input type="text" placeholder="Email" id="email" ng-model="$parent.email" />
-      <input type="text" placeholder="Password" id="password" ng-model="$parent.password" />
+      <img src="img/virtualCloset.png"/>
+      <h1 class="create">Create an Account</h1>
+      <input type="text" class="login" placeholder="Email" id="email" ng-model="$parent.email" />
+      <input type="text" class="login" placeholder="Password" id="password" ng-model="$parent.password" />
 
-      <input type="button" id="backButton" value="Back" ng-click="backToLogin()"/>
-      <input type="button" id="registerButton" value="Submit" ng-click="register()"/>
+      <input type="button" class="registerbutton"id="backButton" value="Back" ng-click="backToLogin()"/>
+      <input type="button" class="registerbutton"id="registerButton" value="Submit" ng-click="register()"/>
 
 
     </div>
