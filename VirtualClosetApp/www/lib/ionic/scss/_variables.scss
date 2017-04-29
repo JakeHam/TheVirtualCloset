@@ -8,9 +8,10 @@ $positive:                        #387ef5 !default;
 $calm:                            #11c1f3 !default;
 $balanced:                        #33cd5f !default;
 $energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
+$assertive:                       #f80768 !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
+
 
 
 // Base
@@ -37,7 +38,7 @@ $headings-font-weight:            500 !default;
 $headings-line-height:            1.2 !default;
 
 $base-background-color:           #fff !default;
-$base-color:                      #000 !default;
+$base-color:                      #f80768 !default;
 
 $link-color:                      $positive !default;
 $link-hover-color:                darken($link-color, 15%) !default;
@@ -229,7 +230,6 @@ $bar-default-text:                $bar-light-text !default;
 $bar-default-border:              $bar-light-border !default;
 $bar-default-active-bg:           $bar-light-active-bg !default;
 $bar-default-active-border:       $bar-light-active-border !default;
-
 
 // Tabs
 // -------------------------------

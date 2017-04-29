@@ -1,18 +1,20 @@
 <ion-view view-title="login" ng-controller="loginCtrl" hide-nav-bar="true">
-  <ion-content>
+  <ion-content class="loginPage">
     <style>h3 {
       height: 110px;
     }
     </style>
     <br><br>
-    <div class="centerDiv">
-      <h3>Welcome to your Virtual Closet! <br> Login below!</h3>
-      <input type="text" placeholder="Email" id="email" ng-model="$parent.email" />
-      <input type="text" placeholder="Password" id="password" ng-model="$parent.password" />
-      <input type="button" value="Submit" ng-click="loginToAccount()"/>
-      <br>
-      <h3>Don't have an account?  <input type="button" value="Click Here!" ng-click="toRegisterPage()"/></h3>
 
+    <div class="centerDiv">
+      <img src="img/virtualCloset.png"/>
+
+      <input class= "login" type="text" placeholder="Email" id="email" ng-model="$parent.email" />
+      <input class = "login" type="password" placeholder="Password" id="password" ng-model="$parent.password" />
+      <input type="button" class = "loginButton" value="Login" ng-click="loginToAccount()"/>
+      <br>
+     <!-- <h3>Sign up<input type="button" value="Sign up" ng-click="toRegisterPage()"/></h3>-->
+      <a href="" class="signup" ng-click="toRegisterPage()">Sign up</a>
 
     </div>
 

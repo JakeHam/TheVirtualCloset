@@ -195,7 +195,7 @@ angular.module('starter.controllers', [])
           $state.go('app.mycloset', {
             'fromRegistrationPage': false
           });
-          $ionicLoading.show({template: 'Sucessful login with existing user', noBackdrop: true, duration: 1000});
+          $ionicLoading.show({template: 'Successful login with existing user', noBackdrop: true, duration: 1000});
 
         }
       });
