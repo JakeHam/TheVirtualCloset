@@ -7,35 +7,36 @@
     <h3 align="center">Add new item to Wish List</h3>
 -->
 
-  <ion-content >
+  <ion-content>
     <h3 align="center">Add new item to Wish List</h3>
-    <body >
+    <body>
 
     <!--<img ng-src="{{srcImage || 'img/dummy.jpg'}}" id="srcImage" width="250 " height="250" style="display: block; margin: 0 auto;"/><br/>
 -->
-    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id = "itemImg" ng-model="item._img">
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" id="itemImg" ng-model="item._img">
     <img ng-show="imgURI === undefined" ng-src="http://placehold.it/250x250">
-    <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button><br/>
+    <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button>
+    <br/>
 
     </body>
 
     <div class="card">
-      <label class ="item item-input" >
-        <span class = "input-label">Item name</span>
+      <label class="item item-input">
+        <span class="input-label">Item name</span>
         <input type="text" placeholder="whatever you like" id="itemName" ng-model="item._name">
       </label>
 
 
-      <label class ="item item-input" >
-        <span class = "input-label">Brand</span>
-        <input type="text" placeholder="e.g. Nike" id = "itemBrand" ng-model="item._brand">
+      <label class="item item-input">
+        <span class="input-label">Brand</span>
+        <input type="text" placeholder="e.g. Nike" id="itemBrand" ng-model="item._brand">
       </label>
 
 
       <!--<label class ="item item-input" id = "itemColor" ng-model="$parent.itemColor">-->
-      <label class ="item item-input" >
-        <span class = "input-label">Color</span>
-        <input type="text" placeholder="e.g. Red" id = "itemColor" ng-model="item._color">
+      <label class="item item-input">
+        <span class="input-label">Color</span>
+        <input type="text" placeholder="e.g. Red" id="itemColor" ng-model="item._color">
       </label>
 
       <button class="button button-positive" ng-click="backtowishlist(item)">
@@ -93,5 +94,5 @@
     </ion-content>
   </ion-pane>-->
 
- <!-- </ion-content>-->
+  <!-- </ion-content>-->
 </ion-view>

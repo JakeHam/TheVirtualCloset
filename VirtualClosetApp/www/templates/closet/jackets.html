@@ -1,18 +1,20 @@
 <ion-view view-title="Jackets" ng-controller="ClosetCtrl">
-  <ion-nav-buttons side = "secondary">
-    <a ng-href = {{ref}} ng-class = doneOrPlus()></a>
+  <ion-nav-buttons side="secondary">
+    <a ng-href={{ref}} ng-class=doneOrPlus()></a>
   </ion-nav-buttons>
 
-  <ion-nav-buttons side = "secondary" ng-if="addItem">
+  <ion-nav-buttons side="secondary" ng-if="addItem">
     <button>Select</button>
   </ion-nav-buttons>
   <ion-content>
     <style>h3 {
-    height: 110px;
+      height: 110px;
     }
     </style>
     <h3 align="center">Jackets Test Page</h3>
     <li class="button button-full" ng-repeat="jacket in finalFormalsArr" ng-click="checkFlag()">
-      Brand: {{jacket._brand}}<br>Color: {{jacket._color}} <br>Name: {{jacket._name}} <br>Image: {{jacket._img}}</li>
+      Id: {{jacket._id}}<br>Brand: {{jacket._brand}}<br>Color: {{jacket._color}} <br>Name: {{jacket._name}} <br>Image:
+      {{jacket._img}}
+    </li>
   </ion-content>
 </ion-view>
