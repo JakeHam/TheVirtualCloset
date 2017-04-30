@@ -1,4 +1,4 @@
-<ion-view view-title="newItem" ng-controller="newitemCtrl">
+<ion-view view-title="Add Item" ng-controller="newitemCtrl">
   <ion-content>
 
     <h3 align="center">Add new item to closet</h3>
@@ -7,12 +7,15 @@
     <img ng-show="imgURI === undefined" ng-src="http://placehold.it/250x250">
     <button class="button button-full button-positive " ng-click="takePicture() ">Take Image</button><br/>
 
-
+    <!--center the image-->
     </body>
 
     <div class="card">
 
-     <select id="item category" ng-model="item._category">
+      <label class ="item item-input" >
+        <span class = "input-label">Item category</span>
+
+      <select id="item category" ng-model="item._category">
         <option>Tops</option>
         <option>Pants</option>
         <option>Shoes</option>
@@ -20,6 +23,8 @@
         <option>Jackets</option>
         <option>Accessories</option>
       </select>
+
+      </label>
 
       <label class ="item item-input" >
         <span class = "input-label">Item name</span>

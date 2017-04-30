@@ -475,8 +475,8 @@ angular.module('starter.controllers', [])
 
     $scope.backtowishlist = function (item) {
 
-
-      createClosetItem(item._name, 'img1', item._brand, item._color, 'Wishlist');
+      console.log(item._img);
+      createClosetItem(item._name, item._img, item._brand, item._color, 'Wishlist');
 
 
       $ionicHistory.nextViewOptions({
@@ -542,12 +542,20 @@ angular.module('starter.controllers', [])
 
     }
 
+    $scope.removeItem = function(item){
+      //$scope.items.splice(index, 1);
+      console.log('its workfsdfsfsdfing');
+      $scope.wishlist.splice($scope.wishlist.indexOf(item),1);
+    }
+
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
     $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
     return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
       $scope.wishlistArr = snapshot.val().Wishlist;
     });
+
+
 
   })
   //$scope.onItemDelete =function(item){

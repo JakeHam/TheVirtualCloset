@@ -24,18 +24,21 @@
     </ion-list>
 
   </ion-content>-->
+
   <ion-content>
 
     <ion-refresher on-refresh="doFefresh()">
     </ion-refresher>
 
-    <ion-list >
-      <ion-item ng-repeat = 'wishitem in wishlistArr' class="item-thumbnail-left item-text-wrap">
-        <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
+
+    <ion-list>
+      <ion-item ng-repeat = 'item in wishlistArr' class="item-thumbnail-left item-text-wrap">
+        <!-- <img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
         <img ng-src="http://placehold.it/250x250" >
-        <h2>{{wishitem._name}}</h2>
-        <h2>{{wishitem._brand}}</h2>
-        <h2>{{wishitem._color}}</h2>
+        <h2>{{item._name}}</h2>
+        <h2>{{item._brand}}</h2>
+        <h2>{{item._color}}</h2>
+        <ion-option-button class="button-assertive ion-trash-a" ng-click="removeItem(item)"></ion-option-button>
       </ion-item>
     </ion-list>
 
