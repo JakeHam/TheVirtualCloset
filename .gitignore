@@ -2,9 +2,11 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-QA/node_modules
 .idea
+npm-debug.log
 VirtualClosetApp/npm-debug.log
+VirtualClosetApp/tests/testresults
+node_modules/
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
