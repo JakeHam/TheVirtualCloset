@@ -9,11 +9,16 @@ exports.config = {
     }
   },
 
+  params: {
+    basePath: __dirname,
+    baseUrl: 'http://192.168.1.44:8100/#/app/'
+  },
+
   onPrepare: function() {
     var jasmineReporters = require('jasmine-reporters');
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter( {
       consolidateAll: true,
-      savePath:       'testresults',
+      savePath:       './tests/testresults',
       filePrefix:     'xmloutput'
     }));
 
@@ -25,7 +30,7 @@ exports.config = {
       displaySuccessfulSpec: true,
       displayFailedSpec: true,
       displayPendingSpec: true,
-      displaySpecDuration: false,
+      displaySpecDuration: true,
       displaySuiteNumber: false,
       colors: {
         success: 'green',
@@ -44,5 +49,8 @@ exports.config = {
   },
   seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://192.168.1.44:8100',
-  specs: ['./tests/end-to-end-tests/*.tests.js']
+  suites: {
+    login: './tests/e2e/login.tests.js',
+    navigation: './tests/e2e/navigation.tests.js'
+  }
 };
