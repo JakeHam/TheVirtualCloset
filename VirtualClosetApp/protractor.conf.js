@@ -48,7 +48,7 @@ exports.config = {
     }
   },
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  baseUrl: 'http://192.168.1.44:8100',
+  baseUrl: 'http://10.140.17.67:8100',
   suites: {
     login: './tests/e2e/login.tests.js',
     navigation: './tests/e2e/navigation.tests.js'
