@@ -6,6 +6,7 @@
 npm-debug.log
 VirtualClosetApp/npm-debug.log
 VirtualClosetApp/tests/testresults
+node_modules/
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

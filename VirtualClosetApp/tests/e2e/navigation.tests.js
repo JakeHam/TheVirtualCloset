@@ -16,7 +16,7 @@ describe('Navigation', function() {
     browser.wait(EC.urlContains('mycloset'), 5000);
   });
 
-  xdescribe('for My Closet Page: ', function() {
+  describe('for My Closet Page: ', function() {
     /* Reset to My Closet Page after each */
     afterEach(function() {
       browser.actions().mouseMove(header.backButton).click().perform();
