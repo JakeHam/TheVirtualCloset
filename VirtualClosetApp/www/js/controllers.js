@@ -59,8 +59,8 @@ angular.module('starter.controllers', [])
     // Perform the logout action
     $scope.doLogout = function () {
       firebase.auth().signOut().then(function () {
-        console.log('Signed Out Firebase user');
-        $ionicLoading.show({template: 'Logout successful!', noBackdrop: true, duration: 1000});
+        console.log('Signed Out User');
+        $ionicLoading.show({template: 'Logout successful!', noBackdrop: true, duration: 2000});
         $scope.closeLogout();
 
         $ionicHistory.nextViewOptions({
@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
         $state.go("app.login");
       }, function (error) {
         console.error('Sign Out Error', error);
-        $ionicLoading.show({template: 'Logout Unsuccessful!', noBackdrop: true, duration: 1000});
+        $ionicLoading.show({template: 'Logout Unsuccessful!', noBackdrop: true, duration: 2000});
       });
 
     };
@@ -81,7 +81,6 @@ angular.module('starter.controllers', [])
 
   // Register controller
   .controller('registerCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
-
     // Register button is pressed.
     $scope.register = function () {
       $scope.createUser($scope.email, $scope.password);
@@ -89,7 +88,7 @@ angular.module('starter.controllers', [])
 
     $scope.createUser = function (email, password) {
       return firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
-        $ionicLoading.show({template: 'Created Firebase User!', noBackdrop: true, duration: 1000});
+        $ionicLoading.show({template: 'Created User!', noBackdrop: true, duration: 2000});
 
         // Creating unique AccountId for current user.
         // The accountID is the email without the "@" and ".com" symbols.
@@ -100,6 +99,9 @@ angular.module('starter.controllers', [])
         // Set the closet database structure.
         setCloset();
 
+        $scope.email = "";
+        $scope.password = "";
+        $ionicHistory.clearCache();
         // After successfully creating database template.
         // Navigate to the My Closet Page.
         $ionicHistory.nextViewOptions({
@@ -113,7 +115,7 @@ angular.module('starter.controllers', [])
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorMessage);
-        $ionicLoading.show({template: 'Creation of user unsuccessful! Try again!', noBackdrop: true, duration: 1000});
+        $ionicLoading.show({template: 'Unsuccessful, Try again!', noBackdrop: true, duration: 2000});
       });
     };
 
@@ -128,7 +130,7 @@ angular.module('starter.controllers', [])
       myCloset.Jackets = "";
       myCloset.Accessories = "";
 
-      myCloset.Connections = [];
+      myCloset.Connections = "";
       myCloset.Wishlist = "";
       myCloset.Calendar = "";
       myCloset.Outfits = "";
@@ -164,16 +166,15 @@ angular.module('starter.controllers', [])
   // Login controller
   .controller('loginCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
     $scope.loginToAccount = function () {
-      console.log("Attempting firebase login with username: " + $scope.email + " | password: " + $scope.password);
       $scope.loginUser($scope.email, $scope.password).then(function () {
         // Check if currentUser is set (we were succesfully able to login)
         var user = firebase.auth().currentUser;
         if (!user) {
           // Show modal with description of events
           $ionicLoading.show({
-            template: 'Login Unsuccessful! Check credentials, check connection or create user',
+            template: 'Unsuccessful, Check credentials, check connection or create user',
             noBackdrop: true,
-            duration: 1000
+            duration: 3000
           });
           $ionicHistory.nextViewOptions({
             disableBack: true
@@ -183,7 +184,9 @@ angular.module('starter.controllers', [])
         } else {
           // If successful login, then currentUser is set and display event modal
           // Show modal with description of events
-
+          $scope.email = "";
+          $scope.password = "";
+          $ionicHistory.clearCache();
           // Retrieve the accountID for getting information as necessary.
           var getUserEmail = user.email;
           $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
@@ -195,7 +198,7 @@ angular.module('starter.controllers', [])
           $state.go('app.mycloset', {
             'fromRegistrationPage': false
           });
-          $ionicLoading.show({template: 'Successful login with existing user', noBackdrop: true, duration: 1000});
+          $ionicLoading.show({template: 'Successful Login!', noBackdrop: true, duration: 2000});
 
         }
       });
@@ -220,6 +223,7 @@ angular.module('starter.controllers', [])
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {
 
+    var newItemId = ID();
     $scope.doneOrPlus2 = function () {
       if ($rootScope.flag == null) {
         $rootScope.flag = false;
@@ -248,32 +252,6 @@ angular.module('starter.controllers', [])
         // NOTE: This code-block has to be removed as we want to add to the database when the user initiates
         // the appropriate event.
         // This is only a test block to understand how the code works.
-        if ($stateParams.fromRegistrationPage == true) {
-          // If successful login, then currentUser is set and display event modal
-          // Show modal with description of events
-          createClosetItem('Accessory1', 'img1', 'brand1', 'color1', 'Accessories');
-          createClosetItem('Accessory2', 'img2', 'brand2', 'color2', 'Accessories');
-
-          createClosetItem('Top1', 'img3', 'brand3', 'color3', 'Tops');
-          createClosetItem('Top2', 'img4', 'brand4', 'color4', 'Tops');
-
-          createClosetItem('Pant1', 'img5', 'brand5', 'color5', 'Pants');
-          createClosetItem('Pant2', 'img6', 'brand6', 'color6', 'Pants');
-
-          createClosetItem('Shoe1', 'img7', 'brand7', 'color7', 'Shoes');
-          createClosetItem('Shoe2', 'img8', 'brand8', 'color8', 'Shoes');
-
-          createClosetItem('Formal1', 'img9', 'brand9', 'color9', 'Formal');
-          createClosetItem('Formal2', 'img10', 'brand10', 'color10', 'Formal');
-
-          createClosetItem('Jacket1', 'img11', 'brand11', 'color11', 'Jackets');
-          createClosetItem('Jacket2', 'img12', 'brand12', 'color12', 'Jackets');
-
-          createClosetItem('wishitem1', 'img13', 'brand13', 'color13', 'Wishlist');
-          createClosetItem('wishitem2', 'img14', 'brand14', 'color14', 'Wishlist');
-          createClosetItem('wishitem3', 'img15', 'brand15', 'color15' , 'Wishlist');
-
-        }
       }
     }
     $scope.init();
@@ -287,7 +265,7 @@ angular.module('starter.controllers', [])
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
 
-      var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
+      var itemObj = new Item(itemName, newItemId, itemImg, itemBrand, itemColor);
       //getAllItems();
 
       //console.log($rootScope.completeContent);
@@ -296,7 +274,6 @@ angular.module('starter.controllers', [])
 
     // This function calls the firebase-database to add the existing "myCloset" object.
     function addItemToCloset(itemObj, itemCategory) {
-      var newItemId = ID();
       var updates = {};
       updates[$rootScope.email + '/' + itemCategory + '/' + newItemId] = itemObj;
       return firebase.database().ref().update(updates);
@@ -327,10 +304,11 @@ angular.module('starter.controllers', [])
 
     // The variable user is created when an instance of the factory is created
     // This is similar to a "contructor" in Java
-    var item = function (name, img, brand, color) {
+    var item = function (name, id, img, brand, color) {
       // Public variables
       // These can be accessed by any controller that has the factory injected into it
       var _name = '';
+      var _id = '';
       var _img = '';
       var _brand = '';
       var _color = '';
@@ -340,11 +318,11 @@ angular.module('starter.controllers', [])
       // This function is run upon initialization/load of the factory (it is called "init" for convention)
       function init() {
         _name = name;
+        _id = id;
         _img = img;
         _brand = brand;
         _color = color;
       }
-
 
 
       // Here the init function is called
@@ -356,6 +334,7 @@ angular.module('starter.controllers', [])
         // available to each instance that is created. They are returned so that they may be accessed
 
         _name: name,
+        _id: id,
         _img: img,
         _brand: brand,
         _color: color
@@ -366,8 +345,9 @@ angular.module('starter.controllers', [])
   })
 
 
-//$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
-  .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams) {
+  //$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
+  .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams) {
+    var newItemId = ID();
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
@@ -413,14 +393,13 @@ angular.module('starter.controllers', [])
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
 
-      var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
+      var itemObj = new Item(itemName, newItemId, itemImg, itemBrand, itemColor);
 
       addItemToCloset(itemObj, itemCategory);
     }
 
     // This function calls the firebase-database to add the existing "myCloset" object.
     function addItemToCloset(itemObj, itemCategory) {
-      var newItemId = ID();
       var updates = {};
       updates[$rootScope.email + '/' + itemCategory + '/' + newItemId] = itemObj;
       return firebase.database().ref().update(updates);
@@ -445,12 +424,12 @@ angular.module('starter.controllers', [])
     };
 
 
-
   })
 
 
   //camera controller
-  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams) {
+  .controller("CameraCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams) {
+    var newItemId = ID();
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
@@ -496,14 +475,13 @@ angular.module('starter.controllers', [])
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
 
-      var itemObj = new Item(itemName, itemImg, itemBrand, itemColor);
+      var itemObj = new Item(itemName, newItemId, itemImg, itemBrand, itemColor);
 
       addItemToCloset(itemObj, itemCategory);
     }
 
     // This function calls the firebase-database to add the existing "myCloset" object.
     function addItemToCloset(itemObj, itemCategory) {
-      var newItemId = ID();
       var updates = {};
       updates[$rootScope.email + '/' + itemCategory + '/' + newItemId] = itemObj;
       return firebase.database().ref().update(updates);
@@ -528,15 +506,14 @@ angular.module('starter.controllers', [])
     };
 
 
-
   })
 
   //wishlist controller
   .controller('WishlishCtrl', function ($scope, $rootScope) {
 
-    $scope.doFefresh = function(){
+    $scope.doFefresh = function () {
       // get data from the source
-     // $scope.wishlistArr = Wishlist.all();
+      // $scope.wishlistArr = Wishlist.all();
 
       $scope.$apply();
 
@@ -584,9 +561,9 @@ angular.module('starter.controllers', [])
   })
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope) {
-   if($rootScope.listOfLists == null){
-     $rootScope.listOfLists = [];
-   }
+    if ($rootScope.listOfLists == null) {
+      $rootScope.listOfLists = [];
+    }
     $scope.showPopup = function () {
       $scope.data = {};
       var outfitPopup = $ionicPopup.show({
@@ -621,11 +598,10 @@ angular.module('starter.controllers', [])
     };
 
 
-
     $scope.selectItem = function (name) {
-      if(!$rootScope.listOfLists.$isEmpty()){
-        for(var i=0; i<$rootScope.listOfLists.size; i++){
-          if(name.equals($rootScope.listOfLists[i].name)){
+      if (!$rootScope.listOfLists.$isEmpty()) {
+        for (var i = 0; i < $rootScope.listOfLists.size; i++) {
+          if (name.equals($rootScope.listOfLists[i].name)) {
             $scope.subList = $rootScope.listOfLists[i].outfitList;
           }
         }
@@ -637,9 +613,7 @@ angular.module('starter.controllers', [])
   .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
 
 
-
-
-if($rootScope.flag == null) {
+    if ($rootScope.flag == null) {
       $rootScope.flag = false;
     }
     if ($rootScope.flag == true) {
@@ -658,9 +632,7 @@ if($rootScope.flag == null) {
       $scope.finalShoesArr = snapshot.val().Shoes;
       $scope.finalFormalsArr = snapshot.val().Formal;
       $scope.finalJacketsArr = snapshot.val().Jackets;
-      $scope. finalAccessoriesArr = snapshot.val().Accessories;
-
-
+      $scope.finalAccessoriesArr = snapshot.val().Accessories;
 
 
       $scope.first = true;
@@ -680,8 +652,6 @@ if($rootScope.flag == null) {
       }
 
 
-
-
       $scope.checkFlag = function () {
         if ($rootScope.flag == true) {
           if ($scope.first) {
@@ -690,9 +660,9 @@ if($rootScope.flag == null) {
             $scope.second = true;
             $scope.first = false;
 
-            for(var i = 0; i<$rootScope.listOfLists.length; i++){
-              if($rootScope.listOfLists[i].name == $rootScope.currName){
-                $rootScope.listOfLists[i].outfitList. push($scope.top);
+            for (var i = 0; i < $rootScope.listOfLists.length; i++) {
+              if ($rootScope.listOfLists[i].name == $rootScope.currName) {
+                $rootScope.listOfLists[i].outfitList.push($scope.top);
               }
             }
           }
@@ -701,9 +671,9 @@ if($rootScope.flag == null) {
             $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
             $scope.second = false;
             $scope.first = true;
-            for(var i = 0; i<$rootScope.listOfLists.length; i++){
-              if($rootScope.listOfLists[i].name == $rootScope.currName){
-                $rootScope.listOfLists[i].outfitList.splice(i,1);
+            for (var i = 0; i < $rootScope.listOfLists.length; i++) {
+              if ($rootScope.listOfLists[i].name == $rootScope.currName) {
+                $rootScope.listOfLists[i].outfitList.splice(i, 1);
               }
             }
           }
@@ -715,30 +685,30 @@ if($rootScope.flag == null) {
 
     });
   })
-  .controller('ConnectionsCtrl',function ($scope, $rootScope) {
+  .controller('ConnectionsCtrl', function ($scope, $rootScope) {
 
-      var user = firebase.auth().currentUser;
-      var getUserEmail = user.email;
-      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-      //var currentConnections = null;
-      firebase.database().ref($rootScope.email).once('value').then(function (current) {
-          $scope.currentConnections = current.Connections;
-      })
-      //noinspection JSAnnotator
-      function addingConnections(connectionEmail) {
-          if (currentConnections.indexOf(connectionEmail) == -1) {
-              currentConnections.push(connectionEmail);
-          }
-          return currentConnections;
+    var user = firebase.auth().currentUser;
+    var getUserEmail = user.email;
+    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+    //var currentConnections = null;
+    firebase.database().ref($rootScope.email).once('value').then(function (current) {
+      $scope.currentConnections = current.Connections;
+    })
+    //noinspection JSAnnotator
+    function addingConnections(connectionEmail) {
+      if (currentConnections.indexOf(connectionEmail) == -1) {
+        currentConnections.push(connectionEmail);
       }
-      function removeConnection(connectionEmail) {
-          if (currentConnections.indexOf(connectionEmail) > -1) {
-              currentConnections.splice(index, 1);
-          }
-          return currentConnections;
+      return currentConnections;
+    }
+
+    function removeConnection(connectionEmail) {
+      if (currentConnections.indexOf(connectionEmail) > -1) {
+        currentConnections.splice(index, 1);
       }
+      return currentConnections;
+    }
   })
-
 
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
