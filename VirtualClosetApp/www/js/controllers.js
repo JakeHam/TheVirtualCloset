@@ -223,7 +223,7 @@ angular.module('starter.controllers', [])
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {
 
-    var newItemId = ID();
+    var newItemId;
     $scope.doneOrPlus2 = function () {
       if ($rootScope.flag == null) {
         $rootScope.flag = false;
@@ -264,7 +264,7 @@ angular.module('starter.controllers', [])
       var getUserEmail = user.email;
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
-
+      newItemId = ID();
       var itemObj = new Item(itemName, newItemId, itemImg, itemBrand, itemColor);
       //getAllItems();
 
@@ -347,7 +347,7 @@ angular.module('starter.controllers', [])
 
   //$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
   .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams) {
-    var newItemId = ID();
+    var newItemId;
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
@@ -392,7 +392,7 @@ angular.module('starter.controllers', [])
       var getUserEmail = user.email;
       $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
 
-
+      newItemId = ID();
       var itemObj = new Item(itemName, newItemId, itemImg, itemBrand, itemColor);
 
       addItemToCloset(itemObj, itemCategory);
@@ -679,7 +679,8 @@ angular.module('starter.controllers', [])
           }
         }
         else {
-          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
+          // TO DO: action item after event is selected.
+          //$ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
         }
       }
 
@@ -711,7 +712,150 @@ angular.module('starter.controllers', [])
   })
 
 
-  .controller('PlaylistCtrl', function ($scope, $stateParams) {
+  .controller('optionsCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $rootScope, $timeout, $state) {
+
+    $scope.deleteAccount = function() {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Delete Closet',
+        cssClass: 'closetbutton',
+        template: 'Are you sure you want to Delete your Virtual Closet Account?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          var user = firebase.auth().currentUser;
+
+          user.delete().then(function() {
+            $ionicLoading.show({template: 'Closet Deleted!', noBackdrop: true, duration: 2000});
+            $state.go("app.login");
+          }, function(error) {
+            //console.log(error);
+            $ionicLoading.show({template: 'Need to Verify Credentials, Please Re-Login and Try Again!', noBackdrop: true, duration: 2000});
+          });
+        } else {
+          //console.log('On Cancel');
+        }
+      });
+    };
+
+
+    $scope.resetCloset = function() {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Reset Closet',
+        cssClass: 'closetbutton',
+        template: 'Are you sure you want to Reset your Virtual Closet?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          var user = firebase.auth().currentUser;
+          var getUserEmail = user.email;
+          $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+          emptyCloset();
+          setCloset();
+          $ionicLoading.show({template: 'Closet Reset!', noBackdrop: true, duration: 2000});
+        } else {
+          //console.log('On Cancel');
+        }
+      });
+    };
+
+    // This function resets the closet.
+    function emptyCloset() {
+      var updates = {};
+      updates[$rootScope.email] = "";
+      return firebase.database().ref().update(updates);
+    }
+
+    // This function creates the myCloset object with the predefined structure.
+    function setCloset() {
+      var myCloset = {};
+      myCloset.accountID = $rootScope.email;
+      myCloset.Tops = "";
+      myCloset.Pants = "";
+      myCloset.Shoes = "";
+      myCloset.Formal = "";
+      myCloset.Jackets = "";
+      myCloset.Accessories = "";
+
+      myCloset.Connections = "";
+      myCloset.Wishlist = "";
+      myCloset.Calendar = "";
+      myCloset.Outfits = "";
+      addClosetToDatabase(myCloset);
+    }
+
+    // This function calls the firebase-database to add the "myCloset" object.
+    function addClosetToDatabase(myCloset) {
+      firebase.database().ref(myCloset.accountID).set({
+        'Tops': myCloset.Tops,
+        'Pants': myCloset.Pants,
+        'Shoes': myCloset.Shoes,
+        'Formal': myCloset.Formal,
+        'Jackets': myCloset.Jackets,
+        'Accessories': myCloset.Accessories,
+
+        'Connections': myCloset.Connections,
+        'Wishlist': myCloset.Wishlist,
+        'Calendar': myCloset.Calendar,
+        'Outfits': myCloset.Outfits
+      });
+    };
+
+    // This function resets the closet.
+    function emptyClosetCategory(itemCategory) {
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+      var updates = {};
+      updates[$rootScope.email + '/' + itemCategory] = "";
+      return firebase.database().ref().update(updates);
+    }
+
+
+    // Triggered on a button click, or some other target
+    $scope.resetClosetCategory = function() {
+      $scope.data = {}
+
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: '<label class="item item-input item-select"><select ng-model="data.wifi" height="20%"><option selected>Accessories</option> <option >Formal</option> <option>Jackets</option> <option>Pants</option> <option>Shoes</option> <option>Tops</option> <br></select></label>',
+        title: 'Reset Closet Category',
+        subTitle: 'Select Closet Category',
+        scope: $scope,
+        cssClass: 'closetbutton',
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Submit</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.data.wifi) {
+                e.preventDefault();
+              } else {
+                emptyClosetCategory($scope.data.wifi);
+                $ionicLoading.show({template: 'Category Reset Successfully!', noBackdrop: true, duration: 2000});
+
+              }
+            }
+          },
+        ]
+      });
+      myPopup.then(function(res) {
+        //console.log('Tapped!', res);
+      });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   });
 
