@@ -204,6 +204,18 @@ angular.module('starter.controllers', [])
       });
     };
 
+    $scope.googleLogin = function () {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+       // This gives you a Google Access Token.
+       var token = result.credential.accessToken;
+       // The signed-in user info.
+       var user = result.user;
+      });
+    };
+
     $scope.loginUser = function (email, password) {
       return firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
         var errorCode = error.code;
@@ -218,7 +230,6 @@ angular.module('starter.controllers', [])
       $state.go("app.register");
     }
   })
-
 
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {

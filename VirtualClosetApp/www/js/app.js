@@ -7,6 +7,8 @@
 
 //angular.module('starter', ['ionic', 'starter.controllers'])
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+  // .constant('FirebaseUrl', 'https://ionicle.firebaseio.com/')
+  // .service('rootRef', ['FirebaseUrl', Firebase])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
