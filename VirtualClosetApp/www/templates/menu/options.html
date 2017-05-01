@@ -1,9 +1,23 @@
-<ion-view view-title="Options">
+<ion-view view-title="Options" ng-controller="optionsCtrl">
   <ion-content>
     <style>h3 {
       height: 110px;
     }
     </style>
-    <h3 align="center">Options Blank Page</h3>
+
+
+
+    <div class="centerDiv">
+    <h4 align="center">Reset Virtual Closet</h4>
+      <input type="button" class = "loginButton" value="Yes" ng-click="resetCloset()"/>
+
+
+    <h4 align="center">Reset Specific Closet Category</h4>
+      <input type="button" class = "loginButton" value="Yes" ng-click="resetClosetCategory()"/>
+
+
+    <h4 align="center">Delete Account</h4>
+    <input type="button" class = "loginButton" value="Yes" ng-click="deleteAccount()"/>
+    </div>
   </ion-content>
 </ion-view>

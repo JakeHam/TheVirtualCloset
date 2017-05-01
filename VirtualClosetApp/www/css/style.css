@@ -30,7 +30,7 @@
   height: 100%;
   width: 100%;
 }
-.centerDiv, #registerButton {
+.centerDiv, #registerButton, #changePasswordText{
   margin:0 auto;
   text-align: center;
 }
@@ -44,6 +44,7 @@
     height: 50%;
 }
 .closetbutton .popup{
+
     width:27%;
 }
 

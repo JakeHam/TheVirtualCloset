@@ -245,7 +245,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
           'menuContent': {
             templateUrl: 'templates/menu/options.html'
           }
-        }
+        },
+        controller: 'optionsCtrl'
       })
 
       // Define register.
