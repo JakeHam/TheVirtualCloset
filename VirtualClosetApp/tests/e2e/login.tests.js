@@ -1,6 +1,8 @@
 var basePath = browser.params.basePath;
 var loginPage = require(basePath + '/tests/e2e/pages/LoginPage.js');
+var myClosetPage = require(basePath + '/tests/e2e/pages/myClosetPage.js');
 
+EC = protractor.ExpectedConditions;
 
 describe('Login:', function() {
   beforeEach(function() {
@@ -17,6 +19,7 @@ describe('Login:', function() {
     loginPage.fillEmail('jakehamelhs@gmail.com');
     loginPage.fillPass('testpass');
     loginPage.login();
+    browser.wait(EC.visibilityOf(myClosetPage.topsButton), 1000);
     expect(browser.getCurrentUrl()).toContain('mycloset');
   })
 });

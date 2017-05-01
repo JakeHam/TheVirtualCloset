@@ -1,7 +1,10 @@
 var LoginPage = function() {
+  EC = protractor.ExpectedConditions;
+
   this.emailInput = element(by.model('$parent.email')),
   this.passInput = element(by.model('$parent.password')),
-  this.loginButton = element(by.css('input.loginButton')),
+  this.loginButton = element(by.css('input.loginButton[ng-click="loginToAccount()"]')),
+  this.signUpButton = element(by.css('input.loginButton[ng-click="toRegisterPage()"]')),
 
   this.get = function() {
     browser.get('#/app/login');
@@ -15,7 +18,12 @@ var LoginPage = function() {
     this.passInput.sendKeys(password);
   },
   this.login = function() {
+    browser.wait(EC.elementToBeClickable(this.loginButton), 1000);
     this.loginButton.click();
+  },
+  this.toSignUpPage = function() {
+    browser.wait(EC.elementToBeClickable(this.signUpButton), 1000);
+    this.signUpButton.click();
   }
 };
 

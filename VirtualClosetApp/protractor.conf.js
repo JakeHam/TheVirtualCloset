@@ -51,6 +51,7 @@ exports.config = {
   baseUrl: 'http://192.168.1.44:8100',
   suites: {
     login: './tests/e2e/login.tests.js',
-    navigation: './tests/e2e/navigation.tests.js'
+    navigation: './tests/e2e/navigation.tests.js',
+    account: './tests/e2e/account.tests.js'
   }
 };
