@@ -214,6 +214,9 @@ angular.module('starter.controllers', [])
        // The signed-in user info.
        var user = result.user;
       });
+      $state.go('app.mycloset', {
+          'fromRegistrationPage': false // ??? upper rights all weird 
+      });
     };
 
     $scope.loginUser = function (email, password) {
@@ -549,7 +552,6 @@ angular.module('starter.controllers', [])
       $scope.events = events;
     });
     $scope.addEvent = function () {
-      console.log("here");
       showPopup();
       // var deferred = $q.defer();
       document.addEventListener("deviceready", onDeviceReady, false);
@@ -574,7 +576,7 @@ angular.module('starter.controllers', [])
     function showPopup() {
       $scope.data = {};
       var outfitPopup = $ionicPopup.show({
-        template: '<input type = "text"  placeholder="Event Name"><br><input type = "date"  placeholder="Date"><br><input type = "outfit"  placeholder="Outfit">',
+        template: '<input type = "text"  placeholder="Event Name" id="name"><br><input type = "date"  placeholder="Date" id="date"><br><input type = "outfit"  placeholder="Outfit" id="outfit">',
 
         title: 'New Event',
         scope: $scope,
@@ -585,8 +587,18 @@ angular.module('starter.controllers', [])
           {
             text: 'Submit',
             onTap: function (e) {
+              console.log("here");
+              $scope.events.push(
+                {
+                  "title": "Meetup on Ionic",
+                  "description": "We'll talk about beer, not Ionic.",
+                  "date": "4",
+                  "outfit": "crocks"
+                }
+              );
               $rootScope.flag = true;
               location.href = "#/app/calendar";
+
               return $scope.data.event;
             }
           },
