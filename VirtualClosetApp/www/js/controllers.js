@@ -583,7 +583,7 @@ angular.module('starter.controllers', [])
         buttons: [
           {text: 'Cancel'},
           {
-            text: 'Add Event',
+            text: 'Submit',
             onTap: function (e) {
               $rootScope.flag = true;
               location.href = "#/app/calendar";
