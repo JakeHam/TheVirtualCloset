@@ -543,15 +543,20 @@ angular.module('starter.controllers', [])
   //}
 
 
-  .controller('CalendarCtrl', function ($scope, Events, $cordovaCamera) {
+  .controller('CalendarCtrl', function ($scope, Events, $cordovaCalendar, $ionicPopup) {
     Events.get().then(function (events) {
       console.log("events", events);
       $scope.events = events;
     });
-    var addEvent = function (event) {
-      var deferred = $q.defer();
-
-      $cordovaCalendar.createEvent({
+    $scope.addEvent = function () {
+      console.log("here");
+      showPopup();
+      // var deferred = $q.defer();
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+     function onDeviceReady() {
+      showPopup();
+       $cordovaCalendar.createEvent({
         title: event.title,
         notes: event.description,
         startDate: event.date,
@@ -559,16 +564,40 @@ angular.module('starter.controllers', [])
       }).then(function (result) {
         console.log('success');
         console.dir(result);
-        deferred.resolve(1);
+        // deferred.resolve(1);
       }, function (err) {
         console.log('error');
         console.dir(err);
-        deferred.resolve(0);
       });
-
-      return deferred.promise;
-
+      // return deferred.promise;
     }
+    function showPopup() {
+      $scope.data = {};
+      var outfitPopup = $ionicPopup.show({
+        template: '<input type = "text"  placeholder="Event Name"><br><input type = "date"  placeholder="Date"><br><input type = "outfit"  placeholder="Outfit">',
+
+        title: 'New Event',
+        scope: $scope,
+        cssClass: 'closetbutton',
+
+        buttons: [
+          {text: 'Cancel'},
+          {
+            text: 'Add Event',
+            onTap: function (e) {
+              $rootScope.flag = true;
+              location.href = "#/app/calendar";
+              return $scope.data.event;
+            }
+          },
+        ],
+      });
+      outfitPopup.then(function (res) {
+        $rootScope.currName = res;
+        $rootScope.listOfLists.push(fullOutfit);
+        console.log('Tapped!', res);
+      });
+    };
   })
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope) {

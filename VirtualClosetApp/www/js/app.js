@@ -38,28 +38,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       {
         "title": "Meetup on Ionic",
         "description": "We'll talk about beer, not Ionic.",
-        "date": incrementDate(new Date(), 1)
+        "date": incrementDate(new Date(), 1),
+        "outfit": "crocks"
       }
     );
     fakeEvents.push(
       {
         "title": "Meetup on Beer",
         "description": "We'll talk about Ionic, not Beer.",
-        "date": incrementDate(new Date(), 2)
+        "date": incrementDate(new Date(), 2),
+        "outfit": "crocks2"
       }
     );
     fakeEvents.push(
       {
         "title": "Ray's Birthday Bash",
         "description": "Celebrate the awesomeness of Ray",
-        "date": incrementDate(new Date(), 4)
+        "date": incrementDate(new Date(), 4),
+        "outfit": "crocks3"
       }
     );
     fakeEvents.push(
       {
         "title": "Code Review",
         "description": "Let's tear apart Ray's code.",
-        "date": incrementDate(new Date(), 5)
+        "date": incrementDate(new Date(), 5),
+        "outfit": "crocks4"
       }
     );
     var getEvents = function () {
