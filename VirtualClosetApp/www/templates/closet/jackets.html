@@ -7,14 +7,19 @@
     <button>Select</button>
   </ion-nav-buttons>
   <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-    <h3 align="center">Jackets Test Page</h3>
-    <li class="button button-full" ng-repeat="jacket in finalFormalsArr" ng-click="checkFlag()">
-      Id: {{jacket._id}}<br>Brand: {{jacket._brand}}<br>Color: {{jacket._color}} <br>Name: {{jacket._name}} <br>Image:
-      {{jacket._img}}
-    </li>
+
+    <ion-refresher on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <ion-list >
+      <ion-item ng-repeat = 'jackets in finalJacketsArr' class="item-thumbnail-left item-text-wrap">
+        <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
+        <img ng-src="http://placehold.it/250x250" >
+        <h2>{{jackets._name}}</h2>
+        <h2>{{jackets._brand}}</h2>
+        <h2>{{jackets._color}}</h2>
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>

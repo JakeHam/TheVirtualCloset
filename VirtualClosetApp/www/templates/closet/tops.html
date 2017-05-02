@@ -3,14 +3,19 @@
     <a ng-href={{ref}} ng-class=doneOrPlus()></a>
   </ion-nav-buttons>
   <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-    <h3 align="center">Tops Test Page</h3>
 
-    <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag()">
-      Id: {{top._id}}<br>Brand: {{top._brand}}<br>Color: {{top._color}} <br>Name: {{top._name}} <br>Image: {{top._img}}
-    </li>
+    <ion-refresher on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <ion-list >
+      <ion-item ng-repeat = 'tops in finalTopsArr' class="item-thumbnail-left item-text-wrap">
+        <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
+        <img ng-src="http://placehold.it/250x250" >
+        <h2>{{tops._name}}</h2>
+        <h2>{{tops._brand}}</h2>
+        <h2>{{tops._color}}</h2>
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>
