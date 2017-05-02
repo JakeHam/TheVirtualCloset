@@ -3,16 +3,19 @@
     <a ng-href={{ref}} ng-class=doneOrPlus()></a>
   </ion-nav-buttons>
   <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-    <h3 align="center">Pants</h3>
 
+    <ion-refresher on-refresh="doRefresh()">
+    </ion-refresher>
 
-    <li class="button button-full" ng-repeat="pant in finalPantsArr" ng-click="checkFlag()">
-      Id: {{pant._id}}<br>Brand: {{pant._brand}}<br>Color: {{pant._color}} <br>Name: {{pant._name}} <br>Image:
-      {{pant._img}}
-    </li>
+    <ion-list >
+      <ion-item ng-repeat = 'pants in finalPantsArr' class="item-thumbnail-left item-text-wrap">
+        <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
+        <img ng-src="http://placehold.it/250x250" >
+        <h2>{{pants._name}}</h2>
+        <h2>{{pants._brand}}</h2>
+        <h2>{{pants._color}}</h2>
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>
