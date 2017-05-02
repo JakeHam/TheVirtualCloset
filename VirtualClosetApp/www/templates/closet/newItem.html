@@ -1,3 +1,4 @@
+
 <ion-view view-title="Add Item to Closet" ng-controller="newitemCtrl">
   <ion-content>
 
@@ -13,7 +14,7 @@
     <div class="card">
 
       <select id="item category" ng-model="item._category">
-        <option>Tops</option>
+        <option value = "" selected>Tops</option>
         <option>Pants</option>
         <option>Shoes</option>
         <option>Formal</option>
@@ -22,8 +23,8 @@
       </select>
 
       <label class="item item-input">
-        <span class="input-label">Item name</span>
-        <input type="text" placeholder="whatever you like" id="item Name" ng-model="item._name">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="e.g. My Favorite Sweater" id="item Name" ng-model="item._name">
       </label>
 
       <label class="item item-input">
@@ -39,9 +40,8 @@
     </div>
 
     <button class="button button-positive" ng-click="backtocloset(item)">
-      save
+      Save
     </button>
 
   </ion-content>
 </ion-view>
-

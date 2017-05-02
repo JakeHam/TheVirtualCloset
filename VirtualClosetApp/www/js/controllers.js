@@ -348,7 +348,6 @@ angular.module('starter.controllers', [])
   //$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
   .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams) {
     var newItemId;
-    //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
       var options = {
@@ -374,7 +373,6 @@ angular.module('starter.controllers', [])
 
       window.alert(item._category);
       createClosetItem(item._name, 'imgi', item._brand, item._color, item._category);
-
 
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -1037,22 +1035,3 @@ angular.module('starter.controllers', [])
 
 
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
