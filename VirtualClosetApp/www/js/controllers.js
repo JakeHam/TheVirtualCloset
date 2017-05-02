@@ -511,7 +511,7 @@ angular.module('starter.controllers', [])
   //wishlist controller
   .controller('WishlishCtrl', function ($scope, $rootScope) {
 
-    $scope.doFefresh = function () {
+    $scope.doRefresh = function () {
       // get data from the source
       // $scope.wishlistArr = Wishlist.all();
 
@@ -530,6 +530,10 @@ angular.module('starter.controllers', [])
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
   //}
+
+  .controller('ItemCtrl', function($scope, $rootScope){
+
+  })
 
 
   .controller('CalendarCtrl', function ($scope, Events, $cordovaCamera) {
