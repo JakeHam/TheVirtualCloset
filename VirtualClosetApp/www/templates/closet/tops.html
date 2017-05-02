@@ -1,6 +1,6 @@
 <ion-view view-title="Tops" ng-controller="ClosetCtrl">
   <ion-nav-buttons side="secondary">
-    <a ng-href={{ref}} ng-class=doneOrPlus()></a>
+    <a ng-href={{ref}} ng-class=doneOrPlus() ng-click="addOutfitItems()"></a>
   </ion-nav-buttons>
   <ion-content>
     <style>h3 {
@@ -9,7 +9,7 @@
     </style>
     <h3 align="center">Tops Test Page</h3>
 
-    <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag()">
+    <li class="button button-full" ng-repeat="top in finalTopsArr" ng-click="checkFlag(top)">
       Id: {{top._id}}<br>Brand: {{top._brand}}<br>Color: {{top._color}} <br>Name: {{top._name}} <br>Image: {{top._img}}
     </li>
   </ion-content>
