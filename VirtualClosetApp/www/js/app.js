@@ -40,7 +40,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         "title": "Meetup on Ionic",
         "description": "We'll talk about beer, not Ionic.",
         "date": incrementDate(new Date(), 1),
-        "outfit": "crocks"
       }
     );
 

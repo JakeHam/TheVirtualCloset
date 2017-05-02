@@ -14,7 +14,24 @@
           {{ event.description }}
           <strong>When: {{ event.date | date:'short' }}</strong>
           <br><br>
-          <strong>Outfit: {{ event.outfit }}</strong>
+            <div id="filled">
+            <strong>Outfit: {{ event.outfit }} </strong>
+            </div>
+             <div id="needsFilling">
+             <input class = "login" type="text" placeholder="outfit?" id="outfit" ng-model="event.outfit" />
+            </div>
+            <script>
+              console.log("aqui2");
+              var x = document.getElementById('filled');
+              var y = document.getElementById('needsFilling');
+              if(event.outfit == null ){
+                x.style.display = 'block';
+                y.style.display = 'none';
+              }else{
+                x.style.display = 'none';
+                y.style.display = 'block';
+              }
+            </script>
         </div>
       </div>                
     </ion-content>

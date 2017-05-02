@@ -566,17 +566,17 @@ angular.module('starter.controllers', [])
       }).then(function (result) {
         console.log('success');
         console.dir(result);
-        // deferred.resolve(1);
+         deferred.resolve(1);
       }, function (err) {
         console.log('error');
         console.dir(err);
       });
-      // return deferred.promise;
+       return deferred.promise;
     }
     function showPopup() {
       $scope.data = {};
       var outfitPopup = $ionicPopup.show({
-        template: '<input type = "text"  placeholder="Event Name" id="name"><br><input type = "date"  placeholder="Date" id="date"><br><input type = "outfit"  placeholder="Outfit" id="outfit">',
+        template: '<input type = "text"  placeholder="Event Name" ng-model = "data.name"><br><input type = "datetime-local"  ng-model ="data.date"><br><input type = "outfit"  placeholder="Outfit" ng-model ="data.outfit">',
 
         title: 'New Event',
         scope: $scope,
@@ -590,15 +590,13 @@ angular.module('starter.controllers', [])
               console.log("here");
               $scope.events.push(
                 {
-                  "title": "Meetup on Ionic",
-                  "description": "We'll talk about beer, not Ionic.",
-                  "date": "4",
-                  "outfit": "crocks"
+                  "title": $scope.data.name,
+                  "description": "hoc est tediosus",
+                  "date": $scope.data.date,
+                  "outfit": $scope.data.outfit
                 }
               );
-              $rootScope.flag = true;
               location.href = "#/app/calendar";
-
               return $scope.data.event;
             }
           },
