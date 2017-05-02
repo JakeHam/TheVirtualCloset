@@ -14,13 +14,12 @@
         Select
       </div>
 
-      <select>
-        <option ng-repeat="item in listOfLists" ng-click = "selectItem(item.name)">{{item.name}}             </option>
+      <select ng-model ="si"  ng-change="selectItem(si)" ng-options="item.name for item in finalOutfits">
       </select>
     </label>
 
     <div class="list list-inset">
-      <div class="item" ng-repeat="subitem in subList"></div>
+      <div class="item" ng-repeat="subitem in subList"> {{subitem._name}}</div>
     </div>
 
   </ion-content>

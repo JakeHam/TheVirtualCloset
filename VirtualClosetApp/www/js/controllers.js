@@ -564,7 +564,11 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope) {
+  .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope, $state, $timeout) {
+    firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+      $scope.finalOutfits = snapshot.val().Outfits;
+    });
+    var newItemId;
     if ($rootScope.listOfLists == null) {
       $rootScope.listOfLists = [];
     }
@@ -592,26 +596,52 @@ angular.module('starter.controllers', [])
 
       });
       outfitPopup.then(function (res) {
-        $rootScope.currName = res;
+        newItemId = ID();
+        function uniqueNumber() {
+          var date = Date.now();
+
+          if (date <= uniqueNumber.previous) {
+            date = ++uniqueNumber.previous;
+          } else {
+            uniqueNumber.previous = date;
+          }
+
+          return date;
+        }
+
+        uniqueNumber.previous = 0;
+
+        function ID() {
+          return uniqueNumber();
+        };
+        $rootScope.outfitList = [];
         var fullOutfit = {};
         fullOutfit.name = res;
-        fullOutfit.outfitList = [];
-        $rootScope.listOfLists.push(fullOutfit);
+        fullOutfit.ID = newItemId;
+        addItemToCloset(fullOutfit);
+        $rootScope.currOutFitID = newItemId;
+        function addItemToCloset(fullOut) {
+          var updates = {};
+          updates[$rootScope.email + '/Outfits/' + newItemId] = fullOut;
+          return firebase.database().ref().update(updates);
+        }
         console.log('Tapped!', res);
       });
     };
 
 
-    $scope.selectItem = function (name) {
-      if (!$rootScope.listOfLists.$isEmpty()) {
-        for (var i = 0; i < $rootScope.listOfLists.size; i++) {
-          if (name.equals($rootScope.listOfLists[i].name)) {
-            $scope.subList = $rootScope.listOfLists[i].outfitList;
-          }
-        }
-      }
-    }
+    $scope.selectItem = function(si) {
+      console.log(si.ID);
+      $scope.finally = si.ID;
+      firebase.database().ref($rootScope.email+'/Outfits/'+$scope.finally).once('value').then(function (snapshot) {
+        $scope.subList = snapshot.val().List;
 
+        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $state.go('app.outfits');
+        console.log("DONE");
+
+    });
+    }
   })
 
   .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
@@ -639,56 +669,62 @@ angular.module('starter.controllers', [])
       $scope.finalAccessoriesArr = snapshot.val().Accessories;
 
 
-      $scope.first = true;
-      $scope.second = false;
+
 
 
       $scope.doneOrPlus = function () {
         if ($rootScope.flag == true) {
           $scope.ref = "#/app/outfits";
+          $rootScope.out = true;
           return "icon ion-checkmark-round";
         }
         else {
           $scope.ref = "#/app/newItem";
+          $rootScope.out = false;
           return "icon ion-plus-round";
         }
 
       }
 
 
-      $scope.checkFlag = function () {
-        if ($rootScope.flag == true) {
-          if ($scope.first) {
-            $scope.buttonType = "ion-button full outline";
-            $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
-            $scope.second = true;
-            $scope.first = false;
+    $scope.addOutfitItems = function () {
+        if($rootScope.out) {
+          addItemToCloset($rootScope.outfitList);
+        }
 
-            for (var i = 0; i < $rootScope.listOfLists.length; i++) {
-              if ($rootScope.listOfLists[i].name == $rootScope.currName) {
-                $rootScope.listOfLists[i].outfitList.push($scope.top);
-              }
+      // This function calls the firebase-database to add the existing "myCloset" object.
+      function addItemToCloset(oL) {
+        var updates = {};
+        updates[$rootScope.email + '/Outfits/' + $rootScope.currOutFitID+'/List/'] = oL;
+        return firebase.database().ref().update(updates);
+      }
+
+    }
+
+      $scope.checkFlag = function (item) {
+        if ($rootScope.flag == true) {
+          var toAdd = true;
+          for (var i = 0; i<$rootScope.outfitList.length; i++){
+            if ($rootScope.outfitList[i]._id == item._id){
+              $scope.buttonType = "button button-full";
+              $rootScope.outfitList.splice(i, 1);
+              toAdd = false;
+              $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
             }
           }
-          else if ($scope.second) {
-            $scope.buttonType = "button button-full";
-            $ionicLoading.show({template: 'Deleted!', noBackdrop: true, duration: 1000});
-            $scope.second = false;
-            $scope.first = true;
-            for (var i = 0; i < $rootScope.listOfLists.length; i++) {
-              if ($rootScope.listOfLists[i].name == $rootScope.currName) {
-                $rootScope.listOfLists[i].outfitList.splice(i, 1);
-              }
-            }
+
+          if(toAdd){
+            $scope.buttonType = "ion-button full outline";
+            $rootScope.outfitList.push(item);
+            $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
           }
         }
         else {
-          // TO DO: action item after event is selected.
-          //$ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
+          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
         }
       }
-
     });
+
   })
   .controller('ConnectionsCtrl', function ($scope, $rootScope) {
 
