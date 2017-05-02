@@ -371,8 +371,8 @@ angular.module('starter.controllers', [])
 
     $scope.backtocloset = function (item) {
 
-      createClosetItem(item._name, 'img1', item._brand, item._color, item._category);
-
+      window.alert(item._category);
+      createClosetItem(item._name, 'imgi', item._brand, item._color, item._category);
 
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -506,10 +506,41 @@ angular.module('starter.controllers', [])
 
   })
 
-  //wishlist controller
-  .controller('WishlishCtrl', function ($scope, $rootScope) {
 
-    $scope.doRefresh = function () {
+
+  .controller('editItemCtrl', function ($scope, $rootScope) {
+
+    $scope.init = function(){
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+      return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+        $scope.wishlistArr = snapshot.val().Wishlist;
+        $rootScope.wishListArrr = snapshot.val().Wishlist;
+        console.log($rootScope.wishListArrr.length);
+      });
+    }
+    $scope.init();
+
+    $scope.removeItem = function(wishitem,index){
+
+      firebase.database().ref($rootScope.email+'/Wishlist/'+ wishitem._id).remove();
+      // $scope.Wishlist.splice(index,1); 
+      return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+        $scope.wishlistArr = snapshot.val().Wishlist;
+      });
+      //$rootScope.wishListArrr
+    }
+
+  })
+
+
+
+  //wishlist controller
+  .controller('WishlishCtrl', function ($scope, $rootScope,$timeout) {
+/*
+    $scope.doFefresh = function () {
       // get data from the source
       // $scope.wishlistArr = Wishlist.all();
 
@@ -517,21 +548,61 @@ angular.module('starter.controllers', [])
 
     }
 
-    var user = firebase.auth().currentUser;
-    var getUserEmail = user.email;
-    $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-    return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+    $rootScope.wishListArrr = [];
+
+    $scope.init = function(){
+      var user = firebase.auth().currentUser;
+      var getUserEmail = user.email;
+      $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+
+      return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+       $scope.wishlistArr = snapshot.val().Wishlist;
+       $rootScope.wishListArrr = snapshot.val().Wishlist;
+       console.log($rootScope.wishListArrr.length);
+      });
+    }
+    $scope.init();
+
+    $scope.removeItem = function(wishitem){ 
+
+      firebase.database().ref($rootScope.email+'/Wishlist/'+ wishitem._id).remove();
+
+      return firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+        $scope.wishlistArr = snapshot.val().Wishlist;
+      });
+
+      //$rootScope.itemWishToChange = wishitem;
+
+      //$rootScope.wishListArrr
+    }
+*/
+
+    firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
       $scope.wishlistArr = snapshot.val().Wishlist;
+
     });
+
+    $scope.removeItem = function(wishitem) {
+      //console.log(si.ID);
+      //$scope.finally = si.ID;
+      //console.log(wishitem._id);
+      firebase.database().ref($rootScope.email+'/Wishlist/'+ wishitem._id).remove();
+
+      firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+        $scope.wishlistArr = snapshot.val().Wishlist;
+
+        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $state.go('app.wishlist');
+        //console.log("DONE");
+      });
+    }
+
+
 
   })
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
   //}
-
-  .controller('ItemCtrl', function($scope, $rootScope){
-
-  })
 
 
   .controller('CalendarCtrl', function ($scope, Events, $cordovaCamera) {
@@ -642,7 +713,7 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading,$timeout) {
 
 
     if ($rootScope.flag == null) {
@@ -665,10 +736,7 @@ angular.module('starter.controllers', [])
       $scope.finalFormalsArr = snapshot.val().Formal;
       $scope.finalJacketsArr = snapshot.val().Jackets;
       $scope.finalAccessoriesArr = snapshot.val().Accessories;
-
-
-
-
+      $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
 
       $scope.doneOrPlus = function () {
         if ($rootScope.flag == true) {
@@ -698,6 +766,77 @@ angular.module('starter.controllers', [])
       }
 
     }
+
+
+      $scope.removeItem = function(item,categoryname) {
+        //console.log(si.ID);
+        //$scope.finally = si.ID;
+        //console.log(wishitem._id);
+        if(categoryname =='Tops'){
+          firebase.database().ref($rootScope.email+'/Tops/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalTopsArr = snapshot.val().Tops;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.tops');
+            //console.log("DONE");
+          });
+        }else if(categoryname =='Jackets'){
+          firebase.database().ref($rootScope.email+'/Jackets/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalJacketsArr = snapshot.val().Jackets;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.jackets');
+            //console.log("DONE");
+          });
+        }else if(categoryname =='Pants'){
+          firebase.database().ref($rootScope.email+'/Pants/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalPantsArr = snapshot.val().Pants;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.pants');
+            //console.log("DONE");
+          });
+        }else if(categoryname =='Shoes'){
+          firebase.database().ref($rootScope.email+'/Shoes/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalShoesArr = snapshot.val().Shoes;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.shoes');
+            //console.log("DONE");
+          });
+        }else if(categoryname =='Formal'){
+          firebase.database().ref($rootScope.email+'/Formal/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalFormalsArr = snapshot.val().Formal;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.formal');
+            //console.log("DONE");
+          });
+        }else if(categoryname =='Accessories'){
+          firebase.database().ref($rootScope.email+'/Accessories/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+            $scope.finalAccessoriesArr = snapshot.val().Accessories;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+            $state.go('app.accessories');
+            //console.log("DONE");
+          });
+        }
+
+      }
+
+
 
       $scope.checkFlag = function (item) {
         if ($rootScope.flag == true) {

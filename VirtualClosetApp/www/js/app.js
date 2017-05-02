@@ -165,6 +165,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         controller: 'CameraCtrl'
       })
 
+      .state('app.editem', {
+        url: '/editem',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/closet/editem.html'
+          }
+        },
+        controller: 'CameraCtrl'
+      })
 
       .state('app.jackets', {
         url: '/jackets',
