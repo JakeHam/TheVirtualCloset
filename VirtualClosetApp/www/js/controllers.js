@@ -79,6 +79,12 @@ angular.module('starter.controllers', [])
     }
   })
 
+  .controller('menuCtrl', function ($scope, $state, $rootScope, $ionicSideMenuDelegate) {
+    $scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
+  })
+
   // Register controller
   .controller('registerCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
     // Register button is pressed.
@@ -163,6 +169,10 @@ angular.module('starter.controllers', [])
 
   })
 
+  .controller('searchCtrl', function ($scope, $state, $rootScope, $ionicHistory) {
+
+  })
+
   // Login controller
   .controller('loginCtrl', function ($scope, $ionicLoading, $state, $rootScope, $ionicHistory) {
     $scope.loginToAccount = function () {
@@ -224,6 +234,7 @@ angular.module('starter.controllers', [])
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {
 
     var newItemId;
+
     $scope.doneOrPlus2 = function () {
       if ($rootScope.flag == null) {
         $rootScope.flag = false;
@@ -240,6 +251,7 @@ angular.module('starter.controllers', [])
       }
 
     }
+
 
     $scope.init = function () {
       var user = firebase.auth().currentUser;
@@ -346,7 +358,7 @@ angular.module('starter.controllers', [])
 
 
   //$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
-  .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams) {
+  .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams, $timeout) {
     var newItemId;
     //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
@@ -374,7 +386,7 @@ angular.module('starter.controllers', [])
 
       //window.alert(item._category);
       createClosetItem(item._name, 'img1', item._brand, item._color, item._category);
-
+      $timeout(function() { $scope.displayErrorMsg = false;}, 3000);
 
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -560,7 +572,10 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope, $state, $timeout) {
+  .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope, $state, $timeout, $ionicLoading, $ionicHistory) {
+
+
+
     firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
       $scope.finalOutfits = snapshot.val().Outfits;
     });
@@ -632,7 +647,7 @@ angular.module('starter.controllers', [])
       firebase.database().ref($rootScope.email+'/Outfits/'+$scope.finally).once('value').then(function (snapshot) {
         $scope.subList = snapshot.val().List;
 
-        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $timeout(function() { $scope.displayErrorMsg = false;}, 300);
         $state.go('app.outfits');
         console.log("DONE");
 
@@ -640,18 +655,9 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading) {
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, $ionicHistory) {
 
 
-    if ($rootScope.flag == null) {
-      $rootScope.flag = false;
-    }
-    if ($rootScope.flag == true) {
-      $scope.ref = "#/app/outfits";
-    }
-    else {
-      $scope.ref = "#/app/newItem";
-    }
 
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
@@ -683,9 +689,14 @@ angular.module('starter.controllers', [])
       }
 
 
+      $scope.goToNew = function () {
+        $state.go('app.newItem');
+      }
+
     $scope.addOutfitItems = function () {
         if($rootScope.out) {
           addItemToCloset($rootScope.outfitList);
+          $rootScope.flag2 = true;
         }
 
       // This function calls the firebase-database to add the existing "myCloset" object.
@@ -693,7 +704,13 @@ angular.module('starter.controllers', [])
         var updates = {};
         updates[$rootScope.email + '/Outfits/' + $rootScope.currOutFitID+'/List/'] = oL;
         return firebase.database().ref().update(updates);
+
       }
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+        $state.go('app.outfits');
+
 
     }
 
