@@ -624,6 +624,18 @@ angular.module('starter.controllers', [])
       console.log("events", events);
       $scope.events = events;
     });
+    $scope.selectItem = function(event) {
+      console.log(event.outfit);
+      $scope.finally = si.ID;
+      firebase.database().ref($rootScope.email+'/Calendar/'+$scope.finally).once('value').then(function (snapshot) {
+        $scope.subList = snapshot.val().List;
+
+        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $state.go('app.outfits');
+        console.log("DONE");
+
+    });
+    }
     $scope.addEvent = function () {
       showPopup();
       // var deferred = $q.defer();
@@ -646,6 +658,7 @@ angular.module('starter.controllers', [])
       });
        return deferred.promise;
     }
+
     function showPopup() {
       $scope.data = {};
       var outfitPopup = $ionicPopup.show({

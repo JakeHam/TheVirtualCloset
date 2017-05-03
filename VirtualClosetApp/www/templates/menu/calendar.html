@@ -15,11 +15,9 @@
           <strong>When: {{ event.date | date:'short' }}</strong>
           <br><br>
             <div id="filled">
-            <strong>Outfit: {{ event.outfit }} </strong>
+            <strong>Outfit: </strong>
             </div>
-             <div id="needsFilling">
-             <input class = "login" type="text" placeholder="outfit?" id="outfit" ng-model="event.outfit" />
-            </div>
+             <select ng-model ="event.outfit"  ng-change="selectItem(event)" ng-options="item.name for item in finalOutfits"></select>
             <script>
               console.log("aqui2");
               var x = document.getElementById('filled');
