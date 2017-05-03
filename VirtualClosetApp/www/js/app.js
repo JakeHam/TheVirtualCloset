@@ -273,6 +273,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
           }
         },
         controller: 'ConnectionsCtrl'
+      })
+
+      .state('app.iteminfo', {
+        url: '/iteminfo',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/closet/itemInfo.html'
+          }
+        },
+        cache: false,
+        controller: 'ClosetCtrl'
       });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/login');

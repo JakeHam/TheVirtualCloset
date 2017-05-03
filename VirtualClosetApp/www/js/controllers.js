@@ -215,7 +215,7 @@ angular.module('starter.controllers', [])
        var user = result.user;
       });
       $state.go('app.mycloset', {
-          'fromRegistrationPage': false // ??? upper rights all weird 
+          'fromRegistrationPage': false // ??? upper rights all weird
       });
     };
 
@@ -233,6 +233,7 @@ angular.module('starter.controllers', [])
       $state.go("app.register");
     }
   })
+
 
   // myClosetCtrl controller
   .controller('myClosetCtrl', function ($scope, $ionicLoading, $state, $rootScope, Item, $ionicHistory, $stateParams) {
@@ -776,7 +777,8 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading,$timeout) {
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading,$timeout, $state) {
+
 
 
     if ($rootScope.flag == null) {
@@ -920,7 +922,8 @@ angular.module('starter.controllers', [])
           }
         }
         else {
-          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
+          $state.go("app.iteminfo");
+          $rootScope.selecteditemid = item._id;
         }
       }
     });

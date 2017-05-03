@@ -80,3 +80,8 @@
   width: 100px;
   margin-bottom: 10px;
 }
+
+.itemDiv{
+  margin:0 auto;
+  text-align: center;
+}
