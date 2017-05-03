@@ -8,7 +8,7 @@
     </ion-refresher>
 
     <ion-list >
-      <ion-item ng-repeat = 'shoes in finalShoesArr' class="item-thumbnail-left item-text-wrap">
+      <ion-item ng-repeat = 'shoes in finalShoesArr' class="item-thumbnail-left item-text-wrap" ng-click="checkFlag(shoes)">
         <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
         <img ng-src="http://placehold.it/250x250" >
         <h2>{{shoes._name}}</h2>

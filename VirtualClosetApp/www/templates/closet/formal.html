@@ -8,7 +8,7 @@
     </ion-refresher>
 
     <ion-list >
-      <ion-item ng-repeat = 'formal in finalFormalsArr' class="item-thumbnail-left item-text-wrap">
+      <ion-item ng-repeat = 'formal in finalFormalsArr' class="item-thumbnail-left item-text-wrap" ng-click="checkFlag(formal)">
         <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
         <img ng-src="http://placehold.it/250x250" >
         <h2>{{formal._name}}</h2>
