@@ -15,6 +15,7 @@ describe('Login:', function() {
     loginPage.login();
     expect(browser.getCurrentUrl()).toContain('login');
   });
+  
   it('Valid input should progress', function() {
     loginPage.fillEmail('jakehamelhs@gmail.com');
     loginPage.fillPass('testpass');
