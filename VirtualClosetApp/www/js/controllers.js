@@ -733,8 +733,8 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, $ionicHistory, $state) {
 
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, $ionicHistory, $state) {
 
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
@@ -808,7 +808,8 @@ angular.module('starter.controllers', [])
           }
         }
         else {
-          $ionicLoading.show({template: 'SELECTED!', noBackdrop: true, duration: 1000});
+          $state.go("app.iteminfo");
+          $rootScope.selecteditemid = item._id;
         }
       }
     });

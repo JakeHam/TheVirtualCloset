@@ -1,0 +1,19 @@
+<ion-view ng-controller="ClosetCtrl">
+  <ion-nav-buttons side="secondary">
+    <button button-clear ng-click="removeItem()">Delete</button>
+  </ion-nav-buttons>
+  <ion-content>
+
+    <ion-refresher on-refresh="doRefresh()">
+    </ion-refresher>
+    <div class="itemDiv">
+      <ion-item>
+        <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
+        <img ng-src="http://placehold.it/250x250" >
+        <h2>Item Name: {{selecteditemid._name}}</h2>
+        <h2>Brand: {{selecteditemid._brand}}</h2>
+        <h2>Color: {{selecteditemid._color}}</h2>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>
