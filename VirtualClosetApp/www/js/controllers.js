@@ -213,7 +213,20 @@ angular.module('starter.controllers', [])
         }
       });
     };
-
+    $scope.googleLogin = function () {
+       var provider = new firebase.auth.GoogleAuthProvider();
+       provider.addScope('profile');
+       provider.addScope('email');
+       firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+       });
+       $state.go('app.mycloset', {
+           'fromRegistrationPage': false // ??? upper rights all weird 
+       });
+     };
     $scope.loginUser = function (email, password) {
       return firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
         var errorCode = error.code;
@@ -544,15 +557,31 @@ angular.module('starter.controllers', [])
   //}
 
 
-  .controller('CalendarCtrl', function ($scope, Events, $cordovaCamera) {
+   .controller('CalendarCtrl', function ($scope, Events, $cordovaCalendar, $ionicPopup) {
     Events.get().then(function (events) {
       console.log("events", events);
       $scope.events = events;
     });
-    var addEvent = function (event) {
-      var deferred = $q.defer();
+    $scope.selectItem = function(event) {
+      console.log(event.outfit);
+      $scope.finally = si.ID;
+      firebase.database().ref($rootScope.email+'/Calendar/'+$scope.finally).once('value').then(function (snapshot) {
+        $scope.subList = snapshot.val().List;
 
-      $cordovaCalendar.createEvent({
+        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $state.go('app.outfits');
+        console.log("DONE");
+
+    });
+    }
+    $scope.addEvent = function () {
+      showPopup();
+      // var deferred = $q.defer();
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+     function onDeviceReady() {
+      showPopup();
+       $cordovaCalendar.createEvent({
         title: event.title,
         notes: event.description,
         startDate: event.date,
@@ -560,16 +589,49 @@ angular.module('starter.controllers', [])
       }).then(function (result) {
         console.log('success');
         console.dir(result);
-        deferred.resolve(1);
+         deferred.resolve(1);
       }, function (err) {
         console.log('error');
         console.dir(err);
-        deferred.resolve(0);
       });
-
-      return deferred.promise;
-
+       return deferred.promise;
     }
+
+    function showPopup() {
+      $scope.data = {};
+      var outfitPopup = $ionicPopup.show({
+        template: '<input type = "text"  placeholder="Event Name" ng-model = "data.name"><br><input type = "datetime-local"  ng-model ="data.date"><br><input type = "outfit"  placeholder="Outfit" ng-model ="data.outfit">',
+
+        title: 'New Event',
+        scope: $scope,
+        cssClass: 'closetbutton',
+
+        buttons: [
+          {text: 'Cancel'},
+          {
+            text: 'Submit',
+            onTap: function (e) {
+              console.log("here");
+              $scope.events.push(
+                {
+                  "title": $scope.data.name,
+                  "description": "hoc est tediosus",
+                  "date": $scope.data.date,
+                  "outfit": $scope.data.outfit
+                }
+              );
+              location.href = "#/app/calendar";
+              return $scope.data.event;
+            }
+          },
+        ],
+      });
+      outfitPopup.then(function (res) {
+        $rootScope.currName = res;
+        $rootScope.listOfLists.push(fullOutfit);
+        console.log('Tapped!', res);
+      });
+    };
   })
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope, $state, $timeout, $ionicLoading, $ionicHistory) {
