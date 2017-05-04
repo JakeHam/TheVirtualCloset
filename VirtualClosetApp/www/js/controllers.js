@@ -809,7 +809,7 @@ angular.module('starter.controllers', [])
         }
         else {
           $state.go("app.iteminfo");
-          $rootScope.selecteditemid = item._id;
+          $rootScope.selecteditem = item;
         }
       }
     });
@@ -1012,22 +1012,3 @@ angular.module('starter.controllers', [])
 
 
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

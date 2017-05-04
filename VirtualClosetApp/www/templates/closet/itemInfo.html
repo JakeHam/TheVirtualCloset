@@ -1,4 +1,4 @@
-<ion-view ng-controller="ClosetCtrl">
+<ion-view view-title="Edit Item" ng-controller="ClosetCtrl">
   <ion-nav-buttons side="secondary">
     <button button-clear ng-click="removeItem()">Delete</button>
   </ion-nav-buttons>
@@ -10,9 +10,9 @@
       <ion-item>
         <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
         <img ng-src="http://placehold.it/250x250" >
-        <h2>Item Name: {{selecteditemid._name}}</h2>
-        <h2>Brand: {{selecteditemid._brand}}</h2>
-        <h2>Color: {{selecteditemid._color}}</h2>
+        <h2>Item Name: {{selecteditem._name}}</h2>
+        <h2>Brand: {{selecteditem._brand}}</h2>
+        <h2>Color: {{selecteditem._color}}</h2>
       </ion-item>
     </div>
   </ion-content>
