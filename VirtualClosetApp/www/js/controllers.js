@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
   })
 
   .controller('menuCtrl', function ($scope, $state, $rootScope, $ionicSideMenuDelegate) {
-    $scope.toggleLeft = function() {
+    $scope.toggleLeft = function () {
       $ionicSideMenuDelegate.toggleLeft();
     };
   })
@@ -214,19 +214,19 @@ angular.module('starter.controllers', [])
       });
     };
     $scope.googleLogin = function () {
-       var provider = new firebase.auth.GoogleAuthProvider();
-       provider.addScope('profile');
-       provider.addScope('email');
-       firebase.auth().signInWithPopup(provider).then(function(result) {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      firebase.auth().signInWithPopup(provider).then(function (result) {
         // This gives you a Google Access Token.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-       });
-       $state.go('app.mycloset', {
-           'fromRegistrationPage': false // ??? upper rights all weird 
-       });
-     };
+      });
+      $state.go('app.mycloset', {
+        'fromRegistrationPage': false // ??? upper rights all weird
+      });
+    };
     $scope.loginUser = function (email, password) {
       return firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
         var errorCode = error.code;
@@ -399,7 +399,9 @@ angular.module('starter.controllers', [])
 
       //window.alert(item._category);
       createClosetItem(item._name, 'img1', item._brand, item._color, item._category);
-      $timeout(function() { $scope.displayErrorMsg = false;}, 3000);
+      $timeout(function () {
+        $scope.displayErrorMsg = false;
+      }, 3000);
 
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -557,31 +559,33 @@ angular.module('starter.controllers', [])
   //}
 
 
-   .controller('CalendarCtrl', function ($scope, Events, $cordovaCalendar, $ionicPopup) {
+  .controller('CalendarCtrl', function ($scope, Events, $cordovaCalendar, $ionicPopup) {
     Events.get().then(function (events) {
       console.log("events", events);
       $scope.events = events;
     });
-    $scope.selectItem = function(event) {
+    $scope.selectItem = function (event) {
       console.log(event.outfit);
       $scope.finally = si.ID;
-      firebase.database().ref($rootScope.email+'/Calendar/'+$scope.finally).once('value').then(function (snapshot) {
+      firebase.database().ref($rootScope.email + '/Calendar/' + $scope.finally).once('value').then(function (snapshot) {
         $scope.subList = snapshot.val().List;
 
-        $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+        $timeout(function () {
+          $scope.displayErrorMsg = false;
+        }, 1000);
         $state.go('app.outfits');
         console.log("DONE");
 
-    });
+      });
     }
     $scope.addEvent = function () {
       showPopup();
       // var deferred = $q.defer();
       document.addEventListener("deviceready", onDeviceReady, false);
     }
-     function onDeviceReady() {
+    function onDeviceReady() {
       showPopup();
-       $cordovaCalendar.createEvent({
+      $cordovaCalendar.createEvent({
         title: event.title,
         notes: event.description,
         startDate: event.date,
@@ -589,12 +593,12 @@ angular.module('starter.controllers', [])
       }).then(function (result) {
         console.log('success');
         console.dir(result);
-         deferred.resolve(1);
+        deferred.resolve(1);
       }, function (err) {
         console.log('error');
         console.dir(err);
       });
-       return deferred.promise;
+      return deferred.promise;
     }
 
     function showPopup() {
@@ -635,7 +639,6 @@ angular.module('starter.controllers', [])
   })
 
   .controller('OutfitsCtrl', function ($scope, $ionicPopup, $rootScope, $state, $timeout, $ionicLoading, $ionicHistory) {
-
 
 
     firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
@@ -698,35 +701,39 @@ angular.module('starter.controllers', [])
           updates[$rootScope.email + '/Outfits/' + newItemId] = fullOut;
           return firebase.database().ref().update(updates);
         }
+
         console.log('Tapped!', res);
       });
     };
 
-    $scope.outfitDelete = function(si){
+    $scope.outfitDelete = function (si) {
       $scope.rem = si.ID;
-      firebase.database().ref($rootScope.email+'/Outfits/'+$scope.rem).remove();
-      $timeout(function() { $scope.displayErrorMsg = false;}, 2000);
+      firebase.database().ref($rootScope.email + '/Outfits/' + $scope.rem).remove();
+      $timeout(function () {
+        $scope.displayErrorMsg = false;
+      }, 2000);
       $state.reload();
       console.log("DONE");
 
     }
 
-    $scope.selectItem = function(si) {
+    $scope.selectItem = function (si) {
       console.log(si.ID);
       $scope.finally = si.ID;
-      firebase.database().ref($rootScope.email+'/Outfits/'+$scope.finally).once('value').then(function (snapshot) {
+      firebase.database().ref($rootScope.email + '/Outfits/' + $scope.finally).once('value').then(function (snapshot) {
         $scope.subList = snapshot.val().List;
 
-        $timeout(function() { $scope.displayErrorMsg = false;}, 300);
+        $timeout(function () {
+          $scope.displayErrorMsg = false;
+        }, 300);
         $state.go('app.outfits');
         console.log("DONE");
 
-    });
+      });
     }
   })
 
-  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, $ionicHistory) {
-
+  .controller('ClosetCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, $ionicHistory, $state) {
 
 
     var user = firebase.auth().currentUser;
@@ -739,9 +746,6 @@ angular.module('starter.controllers', [])
       $scope.finalFormalsArr = snapshot.val().Formal;
       $scope.finalJacketsArr = snapshot.val().Jackets;
       $scope.finalAccessoriesArr = snapshot.val().Accessories;
-
-
-
 
 
       $scope.doneOrPlus = function () {
@@ -763,32 +767,33 @@ angular.module('starter.controllers', [])
         $state.go('app.newItem');
       }
 
-    $scope.addOutfitItems = function () {
-        if($rootScope.out) {
+      $scope.addOutfitItems = function () {
+        if ($rootScope.out) {
           addItemToCloset($rootScope.outfitList);
           $rootScope.flag2 = true;
         }
 
-      // This function calls the firebase-database to add the existing "myCloset" object.
-      function addItemToCloset(oL) {
-        var updates = {};
-        updates[$rootScope.email + '/Outfits/' + $rootScope.currOutFitID+'/List/'] = oL;
-        return firebase.database().ref().update(updates);
+        // This function calls the firebase-database to add the existing "myCloset" object.
+        function addItemToCloset(oL) {
+          var updates = {};
+          updates[$rootScope.email + '/Outfits/' + $rootScope.currOutFitID + '/List/'] = oL;
+          return firebase.database().ref().update(updates);
 
-      }
-      $ionicHistory.nextViewOptions({
-        disableBack: true
-      });
+        }
+
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
         $state.go('app.outfits');
 
 
-    }
+      }
 
       $scope.checkFlag = function (item) {
         if ($rootScope.flag == true) {
           var toAdd = true;
-          for (var i = 0; i<$rootScope.outfitList.length; i++){
-            if ($rootScope.outfitList[i]._id == item._id){
+          for (var i = 0; i < $rootScope.outfitList.length; i++) {
+            if ($rootScope.outfitList[i]._id == item._id) {
               $scope.buttonType = "button button-full";
               $rootScope.outfitList.splice(i, 1);
               toAdd = false;
@@ -796,7 +801,7 @@ angular.module('starter.controllers', [])
             }
           }
 
-          if(toAdd){
+          if (toAdd) {
             $scope.buttonType = "ion-button full outline";
             $rootScope.outfitList.push(item);
             $ionicLoading.show({template: 'Added!', noBackdrop: true, duration: 1000});
@@ -809,50 +814,87 @@ angular.module('starter.controllers', [])
     });
 
   })
-  .controller('ConnectionsCtrl', function ($scope, $rootScope) {
+  .controller('ConnectionsCtrl', function ($scope, $rootScope, $ionicLoading, $state) {
+    var newItemId;
+    $scope.submitEmailConnections = function () {
+      var getUserEmail1 = $scope.connectionEmail;
+      var newUser = getUserEmail1.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+      return firebase.database().ref(newUser).once('value').then(function (snapshot) {
+        if (snapshot.val() == null) {
+          $ionicLoading.show({template: 'Please Enter a Valid Email Address!', noBackdrop: true, duration: 3000});
+        }
+        else {
+          // This is a verified User. 
+          newItemId = ID();
+          addConnection(newUser, 'Connections', newItemId);
+        }
+      });        // This function calls the firebase-database to add the existing "myCloset" object. 
+      function addConnection(connectionEmail, itemCategory, newConnectionsId) {
+        var user = firebase.auth().currentUser;
+        var getUserEmail = user.email;
+        $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
+        console.log($rootScope.email);
+        console.log(connectionEmail);
+        var updates = {};
+        updates[$rootScope.email + '/' + itemCategory + '/' + newConnectionsId] = connectionEmail;
+        //updates[$rootScope.email + '/' + itemCategory] = "works";       return firebase.database().ref().update(updates);  
+      }
 
+      function uniqueNumber() {
+        var date = Date.now();
+        if (date <= uniqueNumber.previous) {
+          date = ++uniqueNumber.previous;
+        }
+        else {
+          uniqueNumber.previous = date;
+        }
+        return date;
+      }
+
+      uniqueNumber.previous = 0;
+      function ID() {
+        return uniqueNumber();
+      };
+    }
     var user = firebase.auth().currentUser;
     var getUserEmail = user.email;
     $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
-    //var currentConnections = null;
-    firebase.database().ref($rootScope.email).once('value').then(function (current) {
-      $scope.currentConnections = current.Connections;
-    })
-    //noinspection JSAnnotator
-    function addingConnections(connectionEmail) {
-      if (currentConnections.indexOf(connectionEmail) == -1) {
-        currentConnections.push(connectionEmail);
-      }
-      return currentConnections;
-    }
-
-    function removeConnection(connectionEmail) {
-      if (currentConnections.indexOf(connectionEmail) > -1) {
-        currentConnections.splice(index, 1);
-      }
-      return currentConnections;
+    firebase.database().ref($rootScope.email).on('value', function (snapshot) {
+      $scope.listOfConnections = snapshot.val().Connections;
+    });
+    $scope.toNewUserClosetPage = function (connectionEmail) {
+      $state.go('app.mycloset',
+        {
+          'fromRegistrationPage': false,
+          'fromConnectionPage': true,
+          'connectionEmail': connectionEmail
+        });
     }
   })
 
 
   .controller('optionsCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $rootScope, $timeout, $state) {
 
-    $scope.deleteAccount = function() {
+    $scope.deleteAccount = function () {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Delete Closet',
         cssClass: 'closetbutton',
         template: 'Are you sure you want to Delete your Virtual Closet Account?'
       });
-      confirmPopup.then(function(res) {
-        if(res) {
+      confirmPopup.then(function (res) {
+        if (res) {
           var user = firebase.auth().currentUser;
 
-          user.delete().then(function() {
+          user.delete().then(function () {
             $ionicLoading.show({template: 'Closet Deleted!', noBackdrop: true, duration: 2000});
             $state.go("app.login");
-          }, function(error) {
+          }, function (error) {
             //console.log(error);
-            $ionicLoading.show({template: 'Need to Verify Credentials, Please Re-Login and Try Again!', noBackdrop: true, duration: 2000});
+            $ionicLoading.show({
+              template: 'Need to Verify Credentials, Please Re-Login and Try Again!',
+              noBackdrop: true,
+              duration: 2000
+            });
           });
         } else {
           //console.log('On Cancel');
@@ -861,14 +903,14 @@ angular.module('starter.controllers', [])
     };
 
 
-    $scope.resetCloset = function() {
+    $scope.resetCloset = function () {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Reset Closet',
         cssClass: 'closetbutton',
         template: 'Are you sure you want to Reset your Virtual Closet?'
       });
-      confirmPopup.then(function(res) {
-        if(res) {
+      confirmPopup.then(function (res) {
+        if (res) {
           var user = firebase.auth().currentUser;
           var getUserEmail = user.email;
           $rootScope.email = getUserEmail.replace(/[&\/\\#,+()$~%.'":*?<>{}@]/g, '');
@@ -935,7 +977,7 @@ angular.module('starter.controllers', [])
 
 
     // Triggered on a button click, or some other target
-    $scope.resetClosetCategory = function() {
+    $scope.resetClosetCategory = function () {
       $scope.data = {}
 
       // An elaborate, custom popup
@@ -946,11 +988,11 @@ angular.module('starter.controllers', [])
         scope: $scope,
         cssClass: 'closetbutton',
         buttons: [
-          { text: 'Cancel' },
+          {text: 'Cancel'},
           {
             text: '<b>Submit</b>',
             type: 'button-positive',
-            onTap: function(e) {
+            onTap: function (e) {
               if (!$scope.data.wifi) {
                 e.preventDefault();
               } else {
@@ -962,22 +1004,10 @@ angular.module('starter.controllers', [])
           },
         ]
       });
-      myPopup.then(function(res) {
+      myPopup.then(function (res) {
         //console.log('Tapped!', res);
       });
     };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   });
