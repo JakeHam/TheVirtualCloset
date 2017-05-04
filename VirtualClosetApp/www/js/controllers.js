@@ -640,6 +640,14 @@ angular.module('starter.controllers', [])
       });
     };
 
+    $scope.outfitDelete = function(si){
+      $scope.rem = si.ID;
+      firebase.database().ref($rootScope.email+'/Outfits/'+$scope.rem).remove();
+      $timeout(function() { $scope.displayErrorMsg = false;}, 2000);
+      $state.reload();
+      console.log("DONE");
+
+    }
 
     $scope.selectItem = function(si) {
       console.log(si.ID);
