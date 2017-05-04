@@ -1,5 +1,5 @@
 <ion-view view-title="Tops" ng-controller="ClosetCtrl">
-c
+
   <ion-nav-buttons side="secondary" >
     <a ng-href={{ref}} ng-class=doneOrPlus() ng-click="addOutfitItems()"></a>
   </ion-nav-buttons>
@@ -8,7 +8,7 @@ c
     <ion-refresher on-refresh="doRefresh()">
     </ion-refresher>
 
-    <ion-list >
+    <ion-list>
       <ion-item ng-repeat = 'tops in finalTopsArr' class="item-thumbnail-left item-text-wrap" ng-click="checkFlag(tops)">
         <!--<img src="img/{{wishitem._name}}.jpg" alt="{{ wishitem._name}} Photo">-->
         <!--<img ng-src="http://placehold.it/250x250" >-->
