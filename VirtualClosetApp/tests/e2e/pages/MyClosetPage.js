@@ -6,6 +6,9 @@ var MyClosetPage = function() {
   this.jacketsButton = element(by.css('i.flaticon-man')),
   this.accessoriesButton = element(by.css('i.flaticon-fashion-1'))
 
+  this.get = function() {
+    browser.get('#/app/mycloset');
+  }
 };
 
 module.exports = new MyClosetPage();

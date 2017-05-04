@@ -7,7 +7,7 @@ var NewItemPage = function() {
   this.accessoriesOption = element(by.cssContainingText('option', 'Accessories')),
   this.saveButton = element(by.css('button[ng-click="backtocloset(item)"]')),
 
-  var EC = protractor.ExpectedConditions;
+  EC = protractor.ExpectedConditions,
 
   this.nameInput = element(by.css('input[id="item Name"]')),
   this.brandInput = element(by.css('input[id="item Brand"]')),
@@ -26,6 +26,7 @@ var NewItemPage = function() {
     this.colorInput.sendKeys(color);
   },
   this.saveItem = function() {
+    browser.actions().mouseMove(this.saveButton).perform();
     this.saveButton.click();
     browser.wait(EC.urlContains('mycloset'), 1000);
   }
