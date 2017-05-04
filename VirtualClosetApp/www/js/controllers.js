@@ -557,6 +557,18 @@ angular.module('starter.controllers', [])
       $scope.wishlistArr = snapshot.val().Wishlist;
     });
 
+    $scope.removeItem = function(wishitem) {
+
+       firebase.database().ref($rootScope.email+'/Wishlist/'+ wishitem._id).remove();
+
+       firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+         $scope.wishlistArr = snapshot.val().Wishlist;
+
+         $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+         $state.go('app.wishlist');
+       });
+     }
+
   })
   //$scope.onItemDelete =function(item){
   //$scope.wishlist.splice($scope.wishlist.indexOf(item),1);
@@ -792,6 +804,66 @@ angular.module('starter.controllers', [])
 
 
       }
+
+      $scope.removeItem = function(item,categoryname) {
+         //console.log(si.ID);
+         if(categoryname =='Tops'){
+           firebase.database().ref($rootScope.email+'/Tops/'+ item._id).remove();
+
+           firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalTopsArr = snapshot.val().Tops;
+
+             $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.tops');
+           });
+         }else if(categoryname =='Jackets'){
+           firebase.database().ref($rootScope.email+'/Jackets/'+ item._id).remove();
+
+           firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalJacketsArr = snapshot.val().Jackets;
+
+             $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.jackets');
+           });
+         }else if(categoryname =='Pants'){
+           firebase.database().ref($rootScope.email+'/Pants/'+ item._id).remove();
+
+          firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalPantsArr = snapshot.val().Pants;
+
+             $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.pants');
+           });
+         }else if(categoryname =='Shoes'){
+           firebase.database().ref($rootScope.email+'/Shoes/'+ item._id).remove();
+
+           firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalShoesArr = snapshot.val().Shoes;
+
+             $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.shoes');
+           });
+         }else if(categoryname =='Formal'){
+           firebase.database().ref($rootScope.email+'/Formal/'+ item._id).remove();
+
+           firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalFormalsArr = snapshot.val().Formal;
+
+            $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.formal');
+           });
+         }else if(categoryname =='Accessories'){
+           firebase.database().ref($rootScope.email+'/Accessories/'+ item._id).remove();
+
+           firebase.database().ref($rootScope.email).once('value').then(function (snapshot) {
+             $scope.finalAccessoriesArr = snapshot.val().Accessories;
+
+             $timeout(function() { $scope.displayErrorMsg = false;}, 1000);
+             $state.go('app.accessories');
+           });
+         }
+
+       }
 
       $scope.checkFlag = function (item) {
         if ($rootScope.flag == true) {
