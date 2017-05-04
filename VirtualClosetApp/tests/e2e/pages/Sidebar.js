@@ -17,35 +17,35 @@ var Sidebar = function() {
   },
   this.clickMyClosetLink = function() {
     browser.wait(EC.elementToBeClickable(this.MyClosetLink), 3000);
-    this.MyClosetLink.click();
+    browser.actions().mouseMove(this.MyClosetLink).click().perform();
   },
   this.clickSearchLink = function() {
-    browser.wait(EC.elementToBeClickable(this.SearchLink));
-    this.SearchLink.click();
+    browser.wait(EC.elementToBeClickable(this.SearchLink), 3000);
+    browser.actions().mouseMove(this.SearchLink).click().perform();
   },
   this.clickOutfitsLink = function() {
     browser.wait(EC.elementToBeClickable(this.OutfitsLink), 3000);
-    this.OutfitsLink.click();
+    browser.actions().mouseMove(this.OutfitsLink).click().perform();
   },
   this.clickCalendarLink = function() {
     browser.wait(EC.elementToBeClickable(this.CalendarLink), 3000);
-    this.CalendarLink.click();
+    browser.actions().mouseMove(this.CalendarLink).click().perform();
   },
   this.clickWishListLink = function() {
     browser.wait(EC.elementToBeClickable(this.WishListLink), 3000);
-    this.WishListLink.click();
+    browser.actions().mouseMove(this.WishListLink).click().perform();
   },
   this.clickConnectionsLink = function() {
     browser.wait(EC.elementToBeClickable(this.ConnectionsLink), 3000);
-    this.ConnectionsLink.click();
+    browser.actions().mouseMove(this.ConnectionsLink).click().perform();
   },
   this.clickOptionsLink = function() {
     browser.wait(EC.elementToBeClickable(this.OptionsLink), 3000);
-    this.OptionsLink.click();
+    browser.actions().mouseMove(this.OptionsLink).click().perform();
   },
   this.clickLogoutLink = function() {
     browser.wait(EC.elementToBeClickable(this.LogoutLink), 3000);
-    this.LogoutLink.click();
+    browser.actions().mouseMove(this.LogoutLink).click().perform();
   }
 
 };
