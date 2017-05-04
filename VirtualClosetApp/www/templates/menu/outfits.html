@@ -1,5 +1,6 @@
-<ion-view view-title="Outfits", ng-controller="OutfitsCtrl">
-  <ion-nav-buttons side = "secondary">
+<ion-view view-title="Outfits", ng-controller="OutfitsCtrl" >
+
+  <ion-nav-buttons side = "secondary" >
     <button ng-click="showPopup()"  class="button button-clear icon ion-plus-round"></button>
   </ion-nav-buttons>
   <ion-content>
@@ -20,6 +21,7 @@
     <div class="list list-inset">
       <div class="item" ng-repeat="subitem in subList"> {{subitem._name}}</div>
     </div>
-
+    <div></div>
+    <button class="button button-full button-positive " ng-click="outfitDelete(si)">Delete</button>
   </ion-content>
 </ion-view>

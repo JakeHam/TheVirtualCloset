@@ -1,9 +1,25 @@
-<ion-view view-title="Connections">
-  <ion-content>
-    <style>h3 {
-      height: 110px;
-    }
-    </style>
-    <h3 align="center">Connections Blank Page</h3>
+<ion-view view-title="Connections" ng-controller="ConnectionsCtrl"> 
+  <ion-content> 
+    <style>
+      h3 {
+         height: 110px;
+      }
+
+           </style>
+      <h3 align="center">Enter a user's email address to add a new connection</h3> 
+    <input class="login" type="text" placeholder="Enter email address" id="email" ng-model="$parent.connectionEmail"/> 
+    <input type="submit" class="loginButton" value="Submit" ng-click="submitEmailConnections()"/>  
+    <hr>
+     
+    <ul> 
+      <li ng-repeat="person in listOfConnections" ng-click="deletePerson(person)">  Email: {{person}}  <input
+        type="button" class="loginButton" value="View Closet" ng-click="toNewUserClosetPage(person)"/> 
+        <hr>
+         
+      </li>
+       
+    </ul>
+      
   </ion-content>
+   
 </ion-view>

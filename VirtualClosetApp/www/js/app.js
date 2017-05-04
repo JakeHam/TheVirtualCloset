@@ -85,6 +85,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       })
 
       .state('app.tops', {
+        cache: false,
         url: '/tops',
         views: {
           'menuContent': {
@@ -96,6 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 
       .state('app.pants', {
+        cache: false,
         url: '/pants',
         views: {
           'menuContent': {
@@ -106,6 +108,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       })
 
       .state('app.shoes', {
+        cache: false,
         url: '/shoes',
         views: {
           'menuContent': {
@@ -116,6 +119,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       })
 
       .state('app.formal', {
+        cache: false,
         url: '/formal',
         views: {
           'menuContent': {
@@ -127,6 +131,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 
       .state('app.newItem', {
+        cache: false,
         url: '/newItem',
         views: {
           'menuContent': {
@@ -139,6 +144,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 
       .state('app.newItemWishlist', {
+        cache: false,
         url: '/newItemWishlist',
         views: {
           'menuContent': {
@@ -159,6 +165,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       })
 
       .state('app.jackets', {
+        cache: false,
         url: '/jackets',
         views: {
           'menuContent': {
@@ -189,6 +196,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       })
 
       .state('app.mycloset', {
+
         url: '/mycloset',
         views: {
           'menuContent': {
@@ -201,6 +209,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 
       .state('app.outfits', {
+        cache: false,
         url: '/outfits',
         views: {
           'menuContent': {
