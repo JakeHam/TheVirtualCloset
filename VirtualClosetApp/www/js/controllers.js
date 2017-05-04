@@ -373,7 +373,6 @@ angular.module('starter.controllers', [])
   //$scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory,$stateParams
   .controller("newitemCtrl", function ($scope, $cordovaCamera, $ionicLoading, $state, Item, $rootScope, $ionicHistory, $stateParams, $timeout) {
     var newItemId;
-    //console.log('its workfsdfsfsdfing')
     $scope.takePicture = function () {
 
       var options = {
@@ -389,11 +388,16 @@ angular.module('starter.controllers', [])
       };
 
       $cordovaCamera.getPicture(options).then(function (imageData) {
+
         $scope.imgURI = "data:image/jpeg;base64," + imageData;
+       // $ionicLoading.show({template: $scope.imgURI, noBackdrop: true, duration: 6000});
+
       }, function (err) {
         // An error occured. Show a message to the user
       });
     }
+
+
 
     $scope.backtocloset = function (item) {
 
